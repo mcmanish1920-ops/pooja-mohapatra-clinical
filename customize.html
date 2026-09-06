@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Customize | Pooja Mohapatra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.admin{padding:125px 0 70px}.admin-shell{max-width:980px;margin:auto}.admin-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:35px}.admin-head h1{font-size:54px;margin:8px 0}.panel{background:#fff;border:1px solid var(--line);padding:30px;margin:18px 0;box-shadow:0 15px 40px rgba(20,50,35,.05)}.panel h2{font-size:30px;margin:0 0 20px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field{margin:0}.field.full{grid-column:1/-1}.field label{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:7px}.field input,.field textarea,.field select{width:100%;padding:12px;border:1px solid var(--line);background:#fbfaf7;font:14px "DM Sans";outline:0}.field textarea{min-height:100px;resize:vertical}.media{display:grid;grid-template-columns:1fr 1fr;gap:25px}.preview{width:100%;aspect-ratio:4/3;object-fit:cover;background:#e8eee5;border:1px dashed var(--line)}.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.admin-btn{border:0;padding:13px 18px;cursor:pointer;font-weight:700}.admin-btn.primary{background:var(--primary);color:#fff}.admin-btn.secondary{background:#e9eee7;color:var(--primary)}.service-editor,.faq-editor{border-top:1px solid var(--line);padding:18px 0}.service-editor:first-child,.faq-editor:first-child{border-top:0}.tiny{font-size:11px;color:#707a73}.status{color:var(--sage);font-weight:700}.swatches{display:flex;gap:12px;flex-wrap:wrap}.swatches label{font-size:10px;display:flex;align-items:center;gap:7px}.swatches input{width:44px;height:35px;padding:2px}.back{font-size:12px;color:var(--sage)}@media(max-width:750px){.fields,.media{grid-template-columns:1fr}.field.full{grid-column:auto}.admin-head{display:block}.admin-head h1{font-size:42px}}
+</style>
+</head>
+<body>
+<header class="header scrolled">
+<div class="container nav-wrap">
+<a class="brand" href="index.html"><img src="assets/logo.png" class="nav-logo" alt=""><span><b>POOJA MOHAPATRA</b><small>CLINICAL PSYCHOLOGY</small></span></a>
+<a class="back" href="index.html">← Back to website</a>
+</div>
+</header>
+
+<main class="admin">
+<div class="container admin-shell">
+<div class="admin-head">
+<div><span class="section-index">WEBSITE CUSTOMIZER</span><h1>Make it <em>yours.</em></h1><p class="tiny">Changes are saved in this browser. No information is sent anywhere by this demo editor.</p></div>
+</div>
+
+<form id="editor">
+
+<section class="panel">
+<h2>Profile</h2>
+<div class="fields">
+<div class="field"><label>Name</label><input data-path="professional.name"></div>
+<div class="field"><label>Designation</label><input data-path="professional.designation"></div>
+<div class="field full"><label>Biography</label><textarea data-path="professional.biography"></textarea></div>
+<div class="field"><label>Qualifications</label><input data-path="professional.qualifications"></div>
+<div class="field"><label>Registration</label><input data-path="professional.registration"></div>
+<div class="field"><label>Experience</label><input data-path="professional.experience"></div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Hero section</h2>
+<div class="fields">
+<div class="field full"><label>Eyebrow</label><input data-path="hero.eyebrow"></div>
+<div class="field"><label>Main heading</label><input data-path="hero.heading"></div>
+<div class="field"><label>Highlighted heading</label><input data-path="hero.highlight"></div>
+<div class="field full"><label>Description</label><textarea data-path="hero.description"></textarea></div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Images & logo</h2>
+<div class="media">
+<div><label class="tiny">Hero image</label><img id="heroPreview" class="preview" src="assets/hero.jpg" alt=""><input id="heroFile" type="file" accept="image/*"></div>
+<div><label class="tiny">Logo</label><img id="logoPreview" class="preview" src="assets/logo.png" alt=""><input id="logoFile" type="file" accept="image/*"></div>
+</div>
+<p class="tiny">Choose a new image to use it on this browser. You can also change the paths directly in config.js for the published package.</p>
+</section>
+
+
+<section class="panel">
+<h2>Professional philosophy</h2>
+<div class="field"><label>Practice statement</label><textarea data-path="philosophy"></textarea></div>
+</section>
+
+<section class="panel">
+<h2>Professional journey</h2>
+<p class="tiny">Use verified education, training, and professional milestones only.</p>
+<div id="timelineEditor"></div>
+<button type="button" class="admin-btn secondary" id="addTimeline">+ Add milestone</button>
+</section>
+
+<section class="panel">
+<h2>Services</h2>
+<div id="servicesEditor"></div>
+<button type="button" class="admin-btn secondary" id="addService">+ Add service</button>
+</section>
+
+
+<section class="panel">
+<h2>Practice gallery</h2>
+<p class="tiny">Use only photographs you own or have permission to publish. Avoid identifiable client/patient imagery unless appropriate consent and professional requirements are satisfied.</p>
+<div id="galleryEditor"></div>
+<button type="button" class="admin-btn secondary" id="addGallery">+ Add image</button>
+</section>
+
+<section class="panel">
+<h2>Client voices</h2>
+<p class="tiny">Use only genuine reviews you are authorized to publish. Avoid identifiable clinical details.</p>
+<div id="testimonialEditor"></div>
+<button type="button" class="admin-btn secondary" id="addTestimonial">+ Add review</button>
+</section>
+
+<section class="panel">
+<h2>FAQ</h2>
+<div id="faqEditor"></div>
+<button type="button" class="admin-btn secondary" id="addFaq">+ Add FAQ</button>
+</section>
+
+<section class="panel">
+<h2>Contact</h2>
+<div class="fields">
+<div class="field"><label>Phone</label><input data-path="contact.phone"></div>
+<div class="field"><label>Email</label><input data-path="contact.email"></div>
+<div class="field full"><label>Address</label><textarea data-path="contact.address"></textarea></div>
+<div class="field"><label>Booking URL</label><input data-path="contact.bookingUrl" placeholder="https://..."></div>
+<div class="field"><label>WhatsApp URL</label><input data-path="contact.whatsappUrl" placeholder="https://..."></div>
+<div class="field full"><label>Map URL</label><input data-path="contact.mapUrl" placeholder="https://..."></div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Brand colours</h2>
+<div class="swatches">
+<label>Primary <input type="color" data-path="appearance.primary"></label>
+<label>Sage <input type="color" data-path="appearance.sage"></label>
+<label>Cream <input type="color" data-path="appearance.cream"></label>
+<label>Text <input type="color" data-path="appearance.ink"></label>
+<label>Gold <input type="color" data-path="appearance.gold"></label>
+</div>
+</section>
+
+<section class="panel">
+<h2>Social links</h2>
+<div class="fields">
+<div class="field"><label>Instagram</label><input data-path="social.instagram"></div>
+<div class="field"><label>LinkedIn</label><input data-path="social.linkedin"></div>
+<div class="field"><label>Facebook</label><input data-path="social.facebook"></div>
+<div class="field"><label>YouTube</label><input data-path="social.youtube"></div>
+</div>
+</section>
+
+<div class="row">
+<button class="admin-btn primary" type="submit">Save changes</button>
+<button class="admin-btn secondary" type="button" id="reset">Reset customizations</button>
+<a class="admin-btn secondary" href="index.html">Preview website →</a>
+<span class="status" id="status"></span>
+</div>
+</form>
+</div>
+</main>
+
+<script src="config.js"></script>
+<script>
+const saved=JSON.parse(localStorage.getItem("poojaSiteConfig")||"null");
+const state=saved?merge(structuredClone(SITE_CONFIG),saved):structuredClone(SITE_CONFIG);
+function merge(a,b){for(const k of Object.keys(b||{})){if(b[k]&&typeof b[k]==="object"&&!Array.isArray(b[k]))a[k]=merge(a[k]||{},b[k]);else a[k]=b[k]}return a}
+function get(obj,path){return path.split(".").reduce((o,k)=>o?.[k],obj)}
+function set(obj,path,val){const parts=path.split(".");let o=obj;parts.slice(0,-1).forEach(k=>o=o[k]||(o[k]={}));o[parts.at(-1)]=val}
+document.querySelectorAll("[data-path]").forEach(el=>{const v=get(state,el.dataset.path);if(v!==undefined)el.value=v});
+function renderServices(){const box=document.querySelector("#servicesEditor");box.innerHTML="";state.services.forEach((s,i)=>{const d=document.createElement("div");d.className="service-editor";d.innerHTML=`<div class="fields"><div class="field"><label>Title</label><input value="${esc(s.title)}" data-service="${i}" data-key="title"></div><div class="field"><label>Short description</label><input value="${esc(s.text)}" data-service="${i}" data-key="text"></div><div class="field full"><label>Detailed information</label><textarea data-service="${i}" data-key="detail">${esc(s.detail||"")}</textarea></div><div class="field"><label>Suitable for</label><input value="${esc(s.audience||"")}" data-service="${i}" data-key="audience"></div><div class="field"><label>What to expect</label><input value="${esc(s.expectations||"")}" data-service="${i}" data-key="expectations"></div></div><button type="button" class="admin-btn secondary remove-service" data-index="${i}">Remove</button>`;box.appendChild(d)})}
+function renderFaq(){const box=document.querySelector("#faqEditor");box.innerHTML="";state.faq.forEach((f,i)=>{const d=document.createElement("div");d.className="faq-editor";d.innerHTML=`<div class="fields"><div class="field"><label>Question</label><input value="${esc(f[0])}" data-faq="${i}" data-key="0"></div><div class="field"><label>Answer</label><textarea data-faq="${i}" data-key="1">${esc(f[1])}</textarea></div></div><button type="button" class="admin-btn secondary remove-faq" data-index="${i}">Remove</button>`;box.appendChild(d)})}
+function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll('"',"&quot;").replaceAll("<","&lt;").replaceAll(">","&gt;")}
+function renderTestimonials(){
+ const box=document.querySelector("#testimonialEditor");box.innerHTML="";
+ (state.testimonials||[]).forEach((t,i)=>{
+  const d=document.createElement("div");d.className="service-editor";
+  d.innerHTML=`<div class="fields"><div class="field"><label>Review</label><textarea data-test="${i}" data-key="quote">${esc(t.quote)}</textarea></div><div class="field"><label>Name / attribution</label><input value="${esc(t.name)}" data-test="${i}" data-key="name"></div><div class="field"><label>Context</label><input value="${esc(t.context)}" data-test="${i}" data-key="context"></div></div><button type="button" class="admin-btn secondary remove-test" data-index="${i}">Remove</button>`;
+  box.appendChild(d);
+ });
+}
+function renderTimeline(){
+ const box=document.querySelector("#timelineEditor");box.innerHTML="";
+ (state.timeline||[]).forEach((t,i)=>{
+  const d=document.createElement("div");d.className="service-editor";
+  d.innerHTML=`<div class="fields"><div class="field"><label>Year</label><input value="${esc(t.year)}" data-time="${i}" data-key="year"></div><div class="field"><label>Milestone</label><input value="${esc(t.title)}" data-time="${i}" data-key="title"></div><div class="field full"><label>Details</label><textarea data-time="${i}" data-key="text">${esc(t.text)}</textarea></div></div><button type="button" class="admin-btn secondary remove-time" data-index="${i}">Remove</button>`;
+  box.appendChild(d);
+ });
+}
+function renderGallery(){
+ const box=document.querySelector("#galleryEditor");box.innerHTML="";
+ (state.gallery||[]).forEach((g,i)=>{
+  const d=document.createElement("div");d.className="service-editor";
+  d.innerHTML=`<div class="fields"><div class="field"><label>Image path / URL</label><input value="${esc(g.image)}" data-gallery="${i}" data-key="image"></div><div class="field"><label>Title</label><input value="${esc(g.title)}" data-gallery="${i}" data-key="title"></div><div class="field full"><label>Caption</label><input value="${esc(g.caption)}" data-gallery="${i}" data-key="caption"></div></div><button type="button" class="admin-btn secondary remove-gallery" data-index="${i}">Remove</button>`;
+  box.appendChild(d);
+ });
+}
+renderServices();renderTestimonials();renderTimeline();renderGallery();renderFaq();
+document.querySelector("#addGallery").onclick=()=>{state.gallery=state.gallery||[];state.gallery.push({image:"assets/hero.jpg",title:"New image",caption:"Add caption."});renderGallery()};
+document.querySelector("#galleryEditor").addEventListener("input",e=>{if(e.target.dataset.gallery!==undefined)state.gallery[+e.target.dataset.gallery][e.target.dataset.key]=e.target.value});
+document.querySelector("#galleryEditor").addEventListener("click",e=>{if(e.target.classList.contains("remove-gallery")){state.gallery.splice(+e.target.dataset.index,1);renderGallery()}});
+document.querySelector("#addTimeline").onclick=()=>{state.timeline=state.timeline||[];state.timeline.push({year:"[Year]",title:"New milestone",text:"Add verified details."});renderTimeline()};
+document.querySelector("#timelineEditor").addEventListener("input",e=>{if(e.target.dataset.time!==undefined)state.timeline[+e.target.dataset.time][e.target.dataset.key]=e.target.value});
+document.querySelector("#timelineEditor").addEventListener("click",e=>{if(e.target.classList.contains("remove-time")){state.timeline.splice(+e.target.dataset.index,1);renderTimeline()}});
+document.querySelector("#addService").onclick=()=>{state.services.push({title:"New service",text:"Add short description.",detail:"Add verified details.",audience:"Add appropriate audience information.",expectations:"Add a clear description of what to expect."});renderServices()};
+document.querySelector("#addTestimonial").onclick=()=>{state.testimonials=state.testimonials||[];state.testimonials.push({quote:"New review",name:"Client name",context:"Verified review"});renderTestimonials()};
+document.querySelector("#testimonialEditor").addEventListener("input",e=>{if(e.target.dataset.test!==undefined)state.testimonials[+e.target.dataset.test][e.target.dataset.key]=e.target.value});
+document.querySelector("#testimonialEditor").addEventListener("click",e=>{if(e.target.classList.contains("remove-test")){state.testimonials.splice(+e.target.dataset.index,1);renderTestimonials()}});
+document.querySelector("#addFaq").onclick=()=>{state.faq.push(["New question","Add answer."]);renderFaq()};
+document.querySelector("#servicesEditor").addEventListener("input",e=>{if(e.target.dataset.service!==undefined)state.services[+e.target.dataset.service][e.target.dataset.key]=e.target.value});
+document.querySelector("#faqEditor").addEventListener("input",e=>{if(e.target.dataset.faq!==undefined)state.faq[+e.target.dataset.faq][+e.target.dataset.key]=e.target.value});
+document.querySelector("#servicesEditor").addEventListener("click",e=>{if(e.target.classList.contains("remove-service")){state.services.splice(+e.target.dataset.index,1);renderServices()}});
+document.querySelector("#faqEditor").addEventListener("click",e=>{if(e.target.classList.contains("remove-faq")){state.faq.splice(+e.target.dataset.index,1);renderFaq()}});
+document.querySelector("#editor").addEventListener("input",e=>{if(e.target.dataset.path)set(state,e.target.dataset.path,e.target.value)});
+function imageUpload(input,path,preview){input.addEventListener("change",()=>{const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{set(state,path,r.result);preview.src=r.result};r.readAsDataURL(f)})}
+imageUpload(document.querySelector("#heroFile"),"hero.image",document.querySelector("#heroPreview"));
+imageUpload(document.querySelector("#logoFile"),"branding.logo",document.querySelector("#logoPreview"));
+document.querySelector("#heroPreview").src=state.hero.image;
+document.querySelector("#logoPreview").src=state.branding.logo;
+document.querySelector("#editor").addEventListener("submit",e=>{e.preventDefault();localStorage.setItem("poojaSiteConfig",JSON.stringify(state));document.querySelector("#status").textContent="Saved ✓";setTimeout(()=>document.querySelector("#status").textContent="",1800)});
+document.querySelector("#reset").onclick=()=>{localStorage.removeItem("poojaSiteConfig");location.reload()};
+</script>
+</body>
+</html>
