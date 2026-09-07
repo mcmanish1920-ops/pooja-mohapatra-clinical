@@ -1,10 +1,4 @@
 document.addEventListener("DOMContentLoaded",()=>{
-  if(typeof SITE_CONFIG==="undefined"){console.error("config.js not loaded");return}
-  const saved = (() => {
-    try { return JSON.parse(localStorage.getItem("poojaSiteConfig") || "null"); }
-    catch (_) { return null; }
-  })();
-  const c = saved ? deepMerge(structuredClone(SITE_CONFIG), saved) : SITE_CONFIG;
   const deepMerge = (target, source) => {
     if (!source || typeof source !== "object") return target;
     for (const key of Object.keys(source)) {
@@ -16,6 +10,13 @@ document.addEventListener("DOMContentLoaded",()=>{
     }
     return target;
   };
+  if(typeof SITE_CONFIG==="undefined"){ console.error("config.js not loaded"); return; }
+  const saved = (() => {
+    try { return JSON.parse(localStorage.getItem("poojaSiteConfig") || "null"); }
+    catch (_) { return null; }
+  })();
+  const clone = (obj) => { try { return structuredClone(obj); } catch (_) { return JSON.parse(JSON.stringify(obj)); } };
+  const c = saved ? deepMerge(clone(SITE_CONFIG), saved) : SITE_CONFIG;
   const $=s=>document.querySelector(s);
   const set=(s,v)=>{const e=$(s);if(e)e.textContent=v??""};
 
