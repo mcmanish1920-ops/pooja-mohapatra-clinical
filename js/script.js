@@ -1,5 +1,5 @@
 (()=>{
-const base=window.SITE_CONFIG||{};const saved=(()=>{try{return JSON.parse(localStorage.getItem('poojaSiteConfigV10')||'null')}catch(e){return null}})();
+const base=window.SITE_CONFIG||{};const saved=(()=>{try{return JSON.parse(localStorage.getItem('poojaSiteConfigV11')||'null')}catch(e){return null}})();
 const merge=(a,b)=>{if(!b)return a;const o=Array.isArray(a)?[...a]:{...a};Object.keys(b).forEach(k=>{o[k]=b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])?merge(o[k]||{},b[k]):b[k]});return o};const c=merge(base,saved);
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
