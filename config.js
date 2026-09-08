@@ -1,4 +1,4 @@
-const SITE_CONFIG = {
+window.SITE_CONFIG={
   site:{name:'Pooja Mohapatra',title:'Clinical Psychology',description:'A calm, thoughtful space for psychological support and wellbeing.'},
   professional:{name:'Pooja Mohapatra',designation:'Clinical Psychologist',biography:'Add the verified professional biography here. Keep this section focused on professional background, areas of practice, and the values that guide the practice.',qualifications:'[Add verified qualifications]',registration:'[Add verified registration details]',experience:'[Add verified experience]'},
   hero:{eyebrow:'CLINICAL PSYCHOLOGY · MENTAL WELLBEING',heading:'A calmer mind begins with',highlight:'understanding.',description:'A thoughtful, confidential space to explore concerns, build insight, and work toward meaningful change.',image:'assets/hero.jpg'},
