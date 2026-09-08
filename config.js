@@ -1,90 +1,23 @@
 const SITE_CONFIG = {
-  site: {
-    name: "Pooja Mohapatra",
-    title: "Clinical Psychology",
-    description: "A calm, thoughtful space for psychological support and wellbeing."
-  },
-
-  professional: {
-    name: "Pooja Mohapatra",
-    designation: "Clinical Psychologist",
-    biography: "Add the verified professional biography here. Keep this section focused on professional background, areas of practice, and the values that guide the practice.",
-    qualifications: "[Add verified qualifications]",
-    registration: "[Add verified registration details]",
-    experience: "[Add verified experience]"
-  },
-
-  hero: {
-    eyebrow: "CLINICAL PSYCHOLOGY · MENTAL WELLBEING",
-    heading: "A calmer mind begins with",
-    highlight: "understanding.",
-    description: "A thoughtful, confidential space to explore concerns, build insight, and work toward meaningful change.",
-    image: "assets/hero.jpg"
-  },
-
-  timeline: [
-    { year: "[Year]", title: "[Education / Professional Milestone]", text: "[Add verified details]" },
-    { year: "[Year]", title: "[Training / Experience]", text: "[Add verified details]" },
-    { year: "[Year]", title: "[Current Practice]", text: "[Add verified details]" }
+  site:{name:'Pooja Mohapatra',title:'Clinical Psychology',description:'A calm, thoughtful space for psychological support and wellbeing.'},
+  professional:{name:'Pooja Mohapatra',designation:'Clinical Psychologist',biography:'Add the verified professional biography here. Keep this section focused on professional background, areas of practice, and the values that guide the practice.',qualifications:'[Add verified qualifications]',registration:'[Add verified registration details]',experience:'[Add verified experience]'},
+  hero:{eyebrow:'CLINICAL PSYCHOLOGY · MENTAL WELLBEING',heading:'A calmer mind begins with',highlight:'understanding.',description:'A thoughtful, confidential space to explore concerns, build insight, and work toward meaningful change.',image:'assets/hero.jpg'},
+  philosophy:'Add a verified professional philosophy or practice statement here.',
+  timeline:[{year:'[Year]',title:'Education / Professional Milestone',text:'Add verified details.'},{year:'[Year]',title:'Training / Experience',text:'Add verified details.'},{year:'[Year]',title:'Current Practice',text:'Add verified details.'}],
+  services:[
+   {title:'Anxiety & Stress',text:'Support for worry, stress, fear, and difficulties with coping.',detail:'A structured space to understand patterns of stress and develop helpful ways of responding.',audience:'People experiencing persistent worry, stress, or overwhelm.',expectations:'An initial conversation about concerns, context, goals, and suitable next steps.'},
+   {title:'Emotional Wellbeing',text:'Understand emotional experiences and build helpful coping strategies.',detail:'Explore emotional patterns with a respectful, person-centred approach.',audience:'People seeking support with emotional wellbeing.',expectations:'Collaborative exploration and practical strategies where appropriate.'},
+   {title:'Psychological Assessment',text:'Structured assessment services where clinically appropriate.',detail:'Assessment can help clarify questions about functioning, learning, behaviour, or wellbeing when clinically indicated.',audience:'Individuals seeking an appropriate psychological assessment.',expectations:'Discussion of the referral question, assessment process, and reporting where applicable.'},
+   {title:'Adolescent Support',text:'Developmentally sensitive support for young people and families.',detail:'A careful approach that considers developmental stage, context, family systems, and the young person’s voice.',audience:'Young people and families where this service is offered.',expectations:'Clear discussion of consent, confidentiality, goals, and involvement of caregivers as appropriate.'},
+   {title:'Life & Relationship Concerns',text:'Support for transitions, interpersonal challenges, and personal concerns.',detail:'A reflective space to understand patterns and identify constructive ways forward.',audience:'People navigating personal or interpersonal concerns.',expectations:'A collaborative conversation focused on context, goals, and practical next steps.'},
+   {title:'Personal Growth',text:'A reflective space for self-awareness, resilience, and meaningful growth.',detail:'Work toward greater self-understanding and sustainable personal development.',audience:'People interested in reflection and personal growth.',expectations:'Goal-focused conversations tailored to the individual.'}
   ],
-
-  philosophy: "Add a verified professional philosophy or practice statement here.",
-
-  services: [
-    { title: "Anxiety & Stress", text: "Support for worry, stress, fear, and difficulties with coping." },
-    { title: "Emotional Wellbeing", text: "A supportive space to understand emotional experiences and build helpful coping strategies." },
-    { title: "Psychological Assessment", text: "Structured assessment services where clinically appropriate." },
-    { title: "Adolescent Support", text: "Developmentally sensitive support for young people and their families." },
-    { title: "Life & Relationship Concerns", text: "Support for transitions, interpersonal challenges, and personal concerns." },
-    { title: "Personal Growth", text: "A reflective space for self-awareness, resilience, and meaningful growth." }
-  ],
-
-  contact: {
-    phone: "[Add verified phone]",
-    email: "[Add verified professional email]",
-    address: "[Add verified clinic address]",
-    bookingUrl: "", // Add your secure booking page URL here
-    whatsappUrl: "", // Add your verified WhatsApp chat URL here
-    mapUrl: ""
-  },
-
-  social: {
-    instagram: "",
-    linkedin: "",
-    facebook: "",
-    youtube: ""
-  },
-
-  gallery: [
-    { image: "assets/hero.jpg", title: "Practice environment", caption: "Add a verified practice-space caption." },
-    { image: "assets/hero.jpg", title: "A calm setting", caption: "Add a verified caption." },
-    { image: "assets/hero.jpg", title: "Thoughtful details", caption: "Add a verified caption." },
-    { image: "assets/hero.jpg", title: "Private consultation space", caption: "Add a verified caption." }
-  ],
-
-  testimonials: [
-    { quote: "Add a verified client review here.", name: "Client name", context: "Verified review" },
-    { quote: "Add another verified review here.", name: "Client name", context: "Verified review" },
-    { quote: "Add another verified review here.", name: "Client name", context: "Verified review" }
-  ],
-
-  faq: [
-    ["How do I schedule a consultation?", "Use the consultation form or the verified contact details provided by the practice."],
-    ["What happens during an initial consultation?", "The first meeting can focus on understanding your concerns, background, goals, and whether the practice is an appropriate fit."],
-    ["Are consultations confidential?", "Professional confidentiality generally applies, subject to applicable law, professional standards, and relevant exceptions."],
-    ["Can adolescents receive support?", "Where adolescent services are offered, consent and participation requirements should be explained clearly to the young person and parent or guardian as applicable."]
-  ],
-
-  branding: {
-    logo: "assets/logo.png",
-    favicon: "assets/logo.png"
-  },
-
-  appearance: {
-    primary: "#173c2b",
-    sage: "#6d9278",
-    cream: "#f6f2e9",
-    ink: "#202622",
-    gold: "#b49453"
-  }
+  approach:[{title:'Understand',text:'Begin with your experiences, circumstances, concerns, and goals.'},{title:'Explore',text:'Develop greater insight into thoughts, emotions, behaviours, and patterns.'},{title:'Grow',text:'Work toward practical, meaningful, and sustainable change.'}],
+  gallery:[{image:'assets/hero.jpg',title:'A calm setting',caption:'A thoughtful environment for conversation.'},{image:'assets/hero.jpg',title:'Private consultation',caption:'Designed with comfort and privacy in mind.'},{image:'assets/hero.jpg',title:'Thoughtful details',caption:'A quiet, welcoming atmosphere.'}],
+  testimonials:[{quote:'Add a verified client review here.',name:'Client name',context:'Verified review'},{quote:'Add another verified review here.',name:'Client name',context:'Verified review'},{quote:'Add another verified review here.',name:'Client name',context:'Verified review'}],
+  faq:[['How do I schedule a consultation?','Use the consultation form or the verified contact details provided by the practice.'],['What happens during an initial consultation?','The first meeting can focus on understanding your concerns, background, goals, and whether the practice is an appropriate fit.'],['Are consultations confidential?','Professional confidentiality generally applies, subject to applicable law, professional standards, and relevant exceptions.'],['Can adolescents receive support?','Where adolescent services are offered, consent and participation requirements should be explained clearly to the young person and parent or guardian as applicable.']],
+  contact:{phone:'[Add verified phone]',email:'[Add verified professional email]',address:'[Add verified clinic address]',bookingUrl:'',whatsappUrl:'',mapUrl:''},
+  social:{instagram:'',linkedin:'',facebook:'',youtube:''},
+  branding:{logo:'assets/logo.png',favicon:'assets/logo.png'},
+  appearance:{primary:'#173c2b',sage:'#6d9278',cream:'#f6f2e9',ink:'#202622',gold:'#b49453',radius:'22',motion:'smooth'}
 };
