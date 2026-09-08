@@ -1,1 +1,71 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Customize | Pooja Mohapatra</title><link rel="stylesheet" href="css/style.css"></head><body><main class="section"><div class="container" style="max-width:800px"><p class="eyebrow">WEBSITE EDITOR</p><h1 style="font:500 55px 'Playfair Display',serif">Customize the practice site.</h1><p class="muted">For permanent published changes, edit <b>config.js</b>. This page provides a quick browser preview editor for key identity and hero fields.</p><form id="editor" style="background:#fffdf8;padding:30px;border:1px solid var(--line);border-radius:var(--radius)"><label>Name<input id="name"></label><label>Designation<input id="designation"></label><label>Hero heading<input id="heading"></label><label>Hero highlight<input id="highlight"></label><label>Hero description><textarea id="description" rows="4"></textarea></label><label>Primary color<input id="primary" type="color"></label><button class="pill dark" type="submit">Save Preview</button> <a class="pill outline" href="index.html">View Website</a><button class="pill outline" id="reset" type="button">Reset</button></form></div></main><script src="config.js"></script><script>const c=SITE_CONFIG,s=id=>document.getElementById(id);s('name').value=c.professional.name;s('designation').value=c.professional.designation;s('heading').value=c.hero.heading;s('highlight').value=c.hero.highlight;s('description').value=c.hero.description;s('primary').value=c.appearance.primary;document.getElementById('editor').onsubmit=e=>{e.preventDefault();const x=JSON.parse(localStorage.getItem('poojaSiteConfigV10')||'{}');x.professional={...(x.professional||{}),name:s('name').value,designation:s('designation').value};x.hero={...(x.hero||{}),heading:s('heading').value,highlight:s('highlight').value,description:s('description').value};x.appearance={...(x.appearance||{}),primary:s('primary').value};localStorage.setItem('poojaSiteConfigV10',JSON.stringify(x));alert('Saved for this browser.');};s('reset').onclick=()=>{localStorage.removeItem('poojaSiteConfigV10');location.reload()};</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123d2c">
+<title>Customize | Puja Mohapatra</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.editor-wrap{max-width:900px;margin:auto}
+.editor-card{background:#fffdf8;padding:32px;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 18px 50px rgba(23,61,44,.08)}
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
+.editor-grid .full{grid-column:1/-1}
+.editor-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.editor-note{margin:12px 0 0;font-size:11px;color:#6c756f;line-height:1.6}
+.back{display:inline-block;margin-bottom:24px;font-size:11px;color:var(--primary);text-decoration:none}
+@media(max-width:700px){.editor-grid{grid-template-columns:1fr}.editor-grid .full{grid-column:auto}.editor-card{padding:22px}.section h1{font-size:40px!important}}
+</style>
+</head>
+<body>
+<main class="section">
+<div class="container editor-wrap">
+<a class="back" href="index.html">← Back to website</a>
+<p class="eyebrow">WEBSITE EDITOR</p>
+<h1 style="font:500 55px/1.05 'Playfair Display',serif;margin:0 0 18px">Customize the practice site.</h1>
+<p class="muted" style="max-width:700px;line-height:1.7;margin-bottom:28px">Edit a few key fields and save a preview on this browser. For permanent published changes, update <b>config.js</b> in GitHub.</p>
+<form id="editor" class="editor-card">
+<div class="editor-grid">
+<label>Name<input id="name" autocomplete="off"></label>
+<label>Designation<input id="designation" autocomplete="off"></label>
+<label class="full">Hero heading<input id="heading" autocomplete="off"></label>
+<label class="full">Hero highlight<input id="highlight" autocomplete="off"></label>
+<label class="full">Hero description<textarea id="description" rows="5"></textarea></label>
+<label>Primary color<input id="primary" type="color"></label>
+</div>
+<div class="editor-actions">
+<button class="pill dark" type="submit">Save Preview <span>→</span></button>
+<a class="pill outline" href="index.html">View Website</a>
+<button class="pill outline" id="reset" type="button">Reset Preview</button>
+</div>
+<p class="editor-note">Preview changes are stored only in this browser. They do not publish to GitHub.</p>
+<p id="status" class="editor-note" aria-live="polite"></p>
+</form>
+</div>
+</main>
+<script src="config.js"></script>
+<script>
+const c=window.SITE_CONFIG||{};
+const key='poojaSiteConfigV11';
+const $=id=>document.getElementById(id);
+const saved=(()=>{try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}})();
+const value=(group,field,fallback='')=>(saved&&saved[group]&&saved[group][field]!==undefined)?saved[group][field]:(c[group]&&c[group][field]!==undefined?c[group][field]:fallback);
+$('name').value=value('professional','name','Puja Mohapatra');
+$('designation').value=value('professional','designation','Clinical Psychologist');
+$('heading').value=value('hero','heading','Compassionate support for a');
+$('highlight').value=value('hero','highlight','healthier, more balanced you.');
+$('description').value=value('hero','description','');
+$('primary').value=value('appearance','primary','#123d2c');
+$('editor').addEventListener('submit',e=>{
+ e.preventDefault();
+ const x={professional:{name:$('name').value,designation:$('designation').value},hero:{heading:$('heading').value,highlight:$('highlight').value,description:$('description').value},appearance:{primary:$('primary').value}};
+ const old=saved||{};
+ const merged={...old,professional:{...(old.professional||{}),...x.professional},hero:{...(old.hero||{}),...x.hero},appearance:{...(old.appearance||{}),...x.appearance}};
+ localStorage.setItem(key,JSON.stringify(merged));
+ $('status').textContent='Preview saved on this browser.';
+});
+$('reset').addEventListener('click',()=>{localStorage.removeItem(key);location.reload()});
+</script>
+</body>
+</html>
