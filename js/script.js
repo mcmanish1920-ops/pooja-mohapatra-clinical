@@ -22,7 +22,7 @@ render();
 (async()=>{
   try{
     const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('pujaSiteCustomizerV12_5',1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('images'))r.result.createObjectStore('images',{keyPath:'id'})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
-    const images=await new Promise((resolve,reject)=>{const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();r.onsuccess=()=>{let out=Object.fromEntries(r.result.map(x=>[x.id,x.dataUrl]));try{const a=JSON.parse(localStorage.getItem('pujaSectionImageMapV127')||'{}');const b=JSON.parse(localStorage.getItem('pujaSectionImageMapV125')||'{}');out={...b,...a,...out}}catch(_){}resolve(out)};r.onerror=()=>reject(r.error)});
+    const images=await new Promise((resolve,reject)=>{const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();r.onsuccess=()=>{let out=Object.fromEntries(r.result.map(x=>[x.id,x.dataUrl]));try{const a=JSON.parse(localStorage.getItem('pujaSectionImageMapV129')||'{}');const old=JSON.parse(localStorage.getItem('pujaSectionImageMapV127')||'{}');const b=JSON.parse(localStorage.getItem('pujaSectionImageMapV125')||'{}');out={...b,...old,...a,...out}}catch(_){}resolve(out)};r.onerror=()=>reject(r.error)});
     Object.entries(images).forEach(([id,url])=>{
       if(id==='hero'){const img=$('#heroImage');if(img)img.src=url;}
       const img=$('#'+id+'Image');
