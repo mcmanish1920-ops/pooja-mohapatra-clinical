@@ -1,8 +1,8 @@
-# Puja Mohapatra Clinical Psychology — V15.0
+# Puja Mohapatra Clinical Psychology — V16.0
 
 Premium editorial refinement built from the corrected V13.1 checkpoint.
 
-## V15.0 focus
+## V16.0 focus
 - Stronger hero hierarchy and portrait framing
 - More polished section spacing, cards, dividers and responsive behavior
 - Varied abstract practice visuals instead of repeating the hero portrait
