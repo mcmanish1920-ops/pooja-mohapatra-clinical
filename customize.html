@@ -5,15 +5,16 @@
 <title>Customize | Puja Mohapatra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=12.3">
+<link rel="stylesheet" href="css/style.css?v=12.4">
 <style>
 .editor-page{padding:90px 0}.editor-wrap{max-width:1000px;margin:auto}.editor-title{font:500 clamp(44px,7vw,76px)/.98 'Playfair Display',serif;max-width:760px;margin:20px 0}.editor-card{background:#fffdf8;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,5vw,48px);box-shadow:0 18px 60px rgba(23,35,30,.06)}.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.editor-field{display:flex;flex-direction:column;gap:9px}.editor-field.full{grid-column:1/-1}.editor-field label{font-weight:600}.editor-field input,.editor-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:14px;background:#fff;padding:14px 16px;font:inherit;color:var(--ink)}.editor-field textarea{min-height:130px;resize:vertical}.editor-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.editor-note{margin-top:18px;color:var(--muted);font-size:14px;line-height:1.6}.color-row{display:flex;align-items:center;gap:12px}.color-row input{width:64px;height:44px;padding:4px}.status{margin-top:16px;font-weight:600;color:var(--primary)}.image-panel{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}.image-panel h2{font:500 34px 'Playfair Display',serif;margin:0 0 8px}.image-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px}.image-card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff}.image-card h3{font:20px 'Playfair Display',serif;margin:0 0 5px}.image-card small{display:block;color:var(--muted);line-height:1.5;margin-bottom:12px}.image-preview{width:100%;aspect-ratio:16/10;border-radius:12px;object-fit:cover;background:#eef0ea;display:block;margin-bottom:12px}.image-actions{display:flex;gap:8px;flex-wrap:wrap}.file-label{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;background:var(--primary);color:#fff;cursor:pointer;font-size:12px;font-weight:700}.file-label input{display:none}.mini-btn{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:999px;cursor:pointer;font:600 12px 'DM Sans'}.image-status{font-size:11px;color:var(--sage);margin-top:9px;min-height:16px}.danger-note{margin-top:18px;padding:14px 16px;border-radius:12px;background:#f6f1e7;color:#68736c;font-size:12px;line-height:1.6}@media(max-width:700px){.editor-page{padding:55px 0}.editor-grid,.image-grid{grid-template-columns:1fr}.editor-field.full{grid-column:auto}.editor-card{padding:22px}.editor-title{font-size:48px}.editor-actions .pill{width:100%;justify-content:center}}
+.real-file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}.choose-image{border:0;font:700 12px 'DM Sans';}.image-actions{position:relative}
 </style>
 </head>
 <body>
 <main class="editor-page"><div class="container editor-wrap">
 <a class="back" href="index.html">← Back to website</a>
-<p class="eyebrow">WEBSITE EDITOR · V12.3</p>
+<p class="eyebrow">WEBSITE EDITOR · V12.4</p>
 <h1 class="editor-title">Customize the practice site.</h1>
 <p class="muted">Edit your content and assign a different image to each section. Image changes are saved as a lightweight browser preview on this device.</p>
 <form id="editor" class="editor-card">
@@ -38,20 +39,144 @@
 <script src="config.js"></script>
 <script>
 (()=>{
-const c=window.SITE_CONFIG||{}, key='pujaSiteConfigV12';
-const $=id=>document.getElementById(id);
-const saved=(()=>{try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}})();
-const get=(a,b)=>saved?.[a]?.[b]??c?.[a]?.[b]??'';
-$('name').value=get('professional','name');$('designation').value=get('professional','designation');$('heading').value=get('hero','heading');$('highlight').value=get('hero','highlight');$('description').value=get('hero','description');$('eyebrow').value=get('hero','eyebrow');$('bio').value=get('professional','biography');$('phone').value=get('contact','phone');$('email').value=get('contact','email');$('address').value=get('contact','address');$('primary').value=get('appearance','primary')||'#123d2c';$('primaryValue').textContent=$('primary').value;
-$('primary').oninput=()=>$('primaryValue').textContent=$('primary').value;
-const sections=[['hero','Hero','Main profile image'],['about','About','Your professional introduction'],['services','Services','A calm visual for services'],['approach','Approach','Visual for your therapeutic approach'],['journey','Journey','Professional journey / milestones'],['practice','Practice','Clinic / practice atmosphere'],['reviews','Reviews','Reviews section visual'],['faq','FAQ','Helpful, calm background visual'],['contact','Contact','Contact / consultation visual'],['cta','CTA','Call-to-action section visual']];
-const current=()=>{const x=saved?.sectionImages||c.sectionImages||{};return {...x}};
-function renderImages(){const data=current();$('imageGrid').innerHTML=sections.map(([id,title,desc])=>{const src=data[id]||((id==='hero')?c.hero?.image:'')||'';return `<article class="image-card"><h3>${title}</h3><small>${desc}</small><img class="image-preview" data-preview="${id}" src="${src}" alt="${title} image preview" onerror="this.style.opacity=.35"><div class="image-actions"><label class="file-label">Choose image<input type="file" accept="image/*" data-file="${id}"></label><button type="button" class="mini-btn" data-clear="${id}">Remove</button></div><div class="image-status" data-status="${id}"></div></article>`}).join('');
-$$('[data-file]').forEach(input=>input.addEventListener('change',e=>{const file=e.target.files?.[0],id=e.target.dataset.file;if(!file)return;const reader=new FileReader();reader.onload=ev=>{const img=new Image();img.onload=()=>{const max=1400,scale=Math.min(1,max/img.width),w=Math.round(img.width*scale),h=Math.round(img.height*scale),canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);const dataUrl=canvas.toDataURL('image/jpeg',.82);const all=current();all[id]=dataUrl;localStorage.setItem(key,JSON.stringify({...saved,sectionImages:all}));$(`[data-preview="${id}"]`).src=dataUrl;$(`[data-status="${id}"]`).textContent='Image ready ✓';};img.src=ev.target.result};reader.readAsDataURL(file)}));
-$$('[data-clear]').forEach(btn=>btn.addEventListener('click',()=>{const id=btn.dataset.clear,all=current();delete all[id];localStorage.setItem(key,JSON.stringify({...saved,sectionImages:all}));const fallback=id==='hero'?c.hero?.image:'';$(`[data-preview="${id}"]`).src=fallback||'';$(`[data-status="${id}"]`).textContent='Using default image';}));}
-renderImages();
-$('editor').onsubmit=e=>{e.preventDefault();const x={...(saved||{}),professional:{name:$('name').value,designation:$('designation').value,biography:$('bio').value},hero:{eyebrow:$('eyebrow').value,heading:$('heading').value,highlight:$('highlight').value,description:$('description').value},contact:{phone:$('phone').value,email:$('email').value,address:$('address').value},appearance:{primary:$('primary').value},sectionImages:current()};localStorage.setItem(key,JSON.stringify(x));$('status').textContent='Saved for this browser ✓';};
-$('reset').onclick=()=>{localStorage.removeItem(key);location.reload()};
+  const c=window.SITE_CONFIG||{};
+  const key='pujaSiteConfigV12';
+  const $=id=>document.getElementById(id);
+  const $$=s=>[...document.querySelectorAll(s)];
+  const getSaved=()=>{try{return JSON.parse(localStorage.getItem(key)||'null')||{} }catch(e){return {}}};
+  let saved=getSaved();
+  const get=(a,b)=>saved?.[a]?.[b]??c?.[a]?.[b]??'';
+
+  $('name').value=get('professional','name');
+  $('designation').value=get('professional','designation');
+  $('heading').value=get('hero','heading');
+  $('highlight').value=get('hero','highlight');
+  $('description').value=get('hero','description');
+  $('eyebrow').value=get('hero','eyebrow');
+  $('bio').value=get('professional','biography');
+  $('phone').value=get('contact','phone');
+  $('email').value=get('contact','email');
+  $('address').value=get('contact','address');
+  $('primary').value=get('appearance','primary')||'#123d2c';
+  $('primaryValue').textContent=$('primary').value;
+  $('primary').oninput=()=>$('primaryValue').textContent=$('primary').value;
+
+  const sections=[
+    ['hero','Hero','Main profile image'],['about','About','Your professional introduction'],
+    ['services','Services','A calm visual for services'],['approach','Approach','Visual for your therapeutic approach'],
+    ['journey','Journey','Professional journey / milestones'],['practice','Practice','Clinic / practice atmosphere'],
+    ['reviews','Reviews','Reviews section visual'],['faq','FAQ','Helpful, calm background visual'],
+    ['contact','Contact','Contact / consultation visual'],['cta','CTA','Call-to-action section visual']
+  ];
+
+  function currentImages(){
+    saved=getSaved();
+    return {...(c.sectionImages||{}),...(saved.sectionImages||{})};
+  }
+
+  function persist(next){
+    saved={...getSaved(),...next};
+    try{
+      localStorage.setItem(key,JSON.stringify(saved));
+      return true;
+    }catch(err){
+      $('status').textContent='Storage is full. Please use a smaller image or remove an old section image.';
+      return false;
+    }
+  }
+
+  function renderImages(){
+    const data=currentImages();
+    $('imageGrid').innerHTML=sections.map(([id,title,desc])=>{
+      const src=data[id]||((id==='hero')?c.hero?.image:'')||'';
+      return `<article class="image-card">
+        <h3>${title}</h3><small>${desc}</small>
+        <img class="image-preview" data-preview="${id}" src="${src}" alt="${title} image preview" onerror="this.style.opacity=.35">
+        <div class="image-actions">
+          <button type="button" class="file-label choose-image" data-pick="${id}">Choose image</button>
+          <input class="real-file" type="file" accept="image/jpeg,image/png,image/webp,image/*" data-file="${id}" aria-label="Choose ${title} image">
+          <button type="button" class="mini-btn" data-clear="${id}">Remove</button>
+        </div>
+        <div class="image-status" data-status="${id}"></div>
+      </article>`;
+    }).join('');
+
+    $$('[data-pick]').forEach(btn=>btn.addEventListener('click',()=>{
+      const id=btn.dataset.pick;
+      const input=$(`[data-file="${id}"]`);
+      if(input) input.click();
+    }));
+
+    $$('[data-file]').forEach(input=>input.addEventListener('change',async e=>{
+      const file=e.target.files?.[0], id=e.target.dataset.file;
+      if(!file)return;
+      const status=$(`[data-status="${id}"]`);
+      status.textContent='Preparing image…';
+      try{
+        const dataUrl=await compressImage(file);
+        const all=currentImages();
+        all[id]=dataUrl;
+        if(!persist({sectionImages:all})) return;
+        $(`[data-preview="${id}"]`).src=dataUrl;
+        status.textContent='Image ready ✓';
+      }catch(err){
+        status.textContent='Could not load that image. Try JPG, PNG or WebP.';
+      }
+      e.target.value='';
+    }));
+
+    $$('[data-clear]').forEach(btn=>btn.addEventListener('click',()=>{
+      const id=btn.dataset.clear;
+      const all=currentImages(); delete all[id];
+      if(!persist({sectionImages:all}))return;
+      const fallback=id==='hero'?c.hero?.image:'';
+      const preview=$(`[data-preview="${id}"]`);
+      if(preview)preview.src=fallback||'';
+      $(`[data-status="${id}"]`).textContent='Using default image';
+    }));
+  }
+
+  function compressImage(file){
+    return new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onerror=()=>reject(new Error('read'));
+      reader.onload=ev=>{
+        const img=new Image();
+        img.onerror=()=>reject(new Error('image'));
+        img.onload=()=>{
+          const max=1100;
+          const scale=Math.min(1,max/Math.max(img.width,img.height));
+          const w=Math.max(1,Math.round(img.width*scale));
+          const h=Math.max(1,Math.round(img.height*scale));
+          const canvas=document.createElement('canvas'); canvas.width=w; canvas.height=h;
+          const ctx=canvas.getContext('2d',{alpha:false});
+          ctx.drawImage(img,0,0,w,h);
+          const out=canvas.toDataURL('image/jpeg',0.72);
+          resolve(out);
+        };
+        img.src=ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  renderImages();
+
+  $('editor').onsubmit=e=>{
+    e.preventDefault();
+    saved=getSaved();
+    const x={...saved,
+      professional:{name:$('name').value,designation:$('designation').value,biography:$('bio').value},
+      hero:{eyebrow:$('eyebrow').value,heading:$('heading').value,highlight:$('highlight').value,description:$('description').value},
+      contact:{phone:$('phone').value,email:$('email').value,address:$('address').value},
+      appearance:{...(saved.appearance||{}),primary:$('primary').value},
+      sectionImages:currentImages()
+    };
+    try{localStorage.setItem(key,JSON.stringify(x));saved=x;$('status').textContent='Saved for this browser ✓';}
+    catch(err){$('status').textContent='Could not save. Remove an old image or use smaller images.';}
+  };
+
+  $('reset').onclick=()=>{localStorage.removeItem(key);location.reload()};
 })();
 </script>
 </body></html>

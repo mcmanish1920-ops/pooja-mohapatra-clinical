@@ -1,36 +1,17 @@
-# Puja Mohapatra Clinical Psychology — V12.3
+# Puja Mohapatra Clinical Psychology — V12.4
 
-Premium responsive clinical psychology website with a calm editorial visual system, mobile navigation, smooth scrolling, reveal animations, configurable content, and a browser-only customization editor.
+Premium responsive clinical psychology website with a browser-based Customize Center.
 
-## V12.3 fixes
-- Puja Mohapatra branding throughout HTML/config.
-- Reliable global `window.SITE_CONFIG` configuration.
-- Fixed `customize.html` layout and malformed Hero Description label.
-- New V12 browser preview storage key.
-- Mobile-first editor styling.
-- Cache-busted CSS/JS references for GitHub Pages updates.
-- Existing placeholder professional details remain intentionally unverified until replaced.
-
-## Files
-- `index.html` — main website
-- `customize.html` — browser preview editor
-- `config.js` — editable site content
-- `css/style.css` — visual system and responsive styles
-- `js/script.js` — rendering and interactions
-- `assets/hero.jpg` — hero/practice image
-- `assets/logo.png` — logo
+## V12.4 image picker fix
+- Replaced the nested hidden file-label interaction with a mobile-safe Choose image button that programmatically opens the file picker.
+- Added explicit image file input support for JPG, PNG and WebP.
+- Added image compression before browser storage to reduce localStorage usage.
+- Added storage-full error handling instead of failing silently.
+- Image state is refreshed from localStorage after every selection so multiple section images no longer overwrite each other.
+- Hero/About/Services/Approach/Journey/Practice/Reviews/FAQ/Contact/CTA each has its own image slot.
 
 ## Important
-Replace placeholder qualifications, registration, experience, address, phone, email, booking links, and testimonials only with verified information and appropriate permissions.
+Customize Center changes are saved locally in the browser on that device. To publish permanent images for everyone, place the selected image in `assets/` and set its path in `sectionImages` in `config.js`.
 
-
-## V12.3 visual update
-- Added subtle title-based background artwork for About, Services, Journey, Practice, Approach, Client Voices, FAQ, CTA, and Contact.
-- Backgrounds are local SVG assets for reliable GitHub Pages loading.
-- Added a cache-busting version bump to CSS/JS references.
-
-
-## V12.3
-- Added per-section image customization in customize.html.
-- Added smoother reveal motion and lightweight scroll parallax hooks for desktop and mobile.
-- Section images remain browser-local previews until published through config.js/assets.
+## V12.3 motion
+- Fluid reveal animations, gentle section background motion, hero image motion, active navigation, mobile menu behavior, and reduced-motion support.
