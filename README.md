@@ -1,8 +1,8 @@
-# Puja Mohapatra Clinical Psychology — V12.0
+# Puja Mohapatra Clinical Psychology — V12.1
 
 Premium responsive clinical psychology website with a calm editorial visual system, mobile navigation, smooth scrolling, reveal animations, configurable content, and a browser-only customization editor.
 
-## V12.0 fixes
+## V12.1 fixes
 - Puja Mohapatra branding throughout HTML/config.
 - Reliable global `window.SITE_CONFIG` configuration.
 - Fixed `customize.html` layout and malformed Hero Description label.
@@ -22,3 +22,9 @@ Premium responsive clinical psychology website with a calm editorial visual syst
 
 ## Important
 Replace placeholder qualifications, registration, experience, address, phone, email, booking links, and testimonials only with verified information and appropriate permissions.
+
+
+## V12.1 visual update
+- Added subtle title-based background artwork for About, Services, Journey, Practice, Approach, Client Voices, FAQ, CTA, and Contact.
+- Backgrounds are local SVG assets for reliable GitHub Pages loading.
+- Added a cache-busting version bump to CSS/JS references.
