@@ -25,7 +25,11 @@ render();
     const images=await new Promise((resolve,reject)=>{const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();r.onsuccess=()=>resolve(Object.fromEntries(r.result.map(x=>[x.id,x.dataUrl])));r.onerror=()=>reject(r.error)});
     Object.entries(images).forEach(([id,url])=>{
       if(id==='hero'){const img=$('#heroImage');if(img)img.src=url;}
-      else {const el=$('#'+id);if(el)el.style.setProperty('--section-image',`url(\"${url}\")`);}
+      const img=$('#'+id+'Image');
+      if(img) img.src=url;
+      const el=$('#'+id);
+      if(el) el.style.setProperty('--section-image',`url(\"${url}\")`);
+      if(id==='practice'){const first=$('#galleryGrid img');if(first)first.src=url;}
     });
   }catch(e){}
 })();
