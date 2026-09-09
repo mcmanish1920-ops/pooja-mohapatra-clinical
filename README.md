@@ -1,16 +1,17 @@
-# Puja Mohapatra Clinical Psychology — V13.1
+# Puja Mohapatra Clinical Psychology — V14.0
 
-Premium responsive clinical psychology website for GitHub Pages.
+Premium editorial refinement built from the corrected V13.1 checkpoint.
 
-## V13.1
-- Reliable Android image picker using a real label/input control.
-- Per-section image customization for Hero, About, Services, Approach, Journey, Practice, Reviews, FAQ, Contact and CTA.
-- Section images stored in IndexedDB for better browser capacity than localStorage.
-- Cleaned hero presentation and removed the extra handwritten overlay.
-- Fluid reveal, active navigation, subtle parallax/background motion and reduced-motion support.
-- Responsive mobile navigation and premium spacing/typography refinements.
+## V14.0 focus
+- Stronger hero hierarchy and portrait framing
+- More polished section spacing, cards, dividers and responsive behavior
+- Varied abstract practice visuals instead of repeating the hero portrait
+- Clear review placeholders instead of fabricated client testimonials
+- Improved mobile navigation and accessibility focus states
+- Smooth reveal/parallax motion with reduced-motion support
+- Lazy-loaded non-hero imagery and basic social/SEO metadata
 
-### Important
-Customize changes are browser-local preview changes. For permanent public changes, place final image files in `assets/` and set their paths in `config.js`.
+## GitHub Pages
+Upload the **contents of this folder** to the repository root. Keep `assets/`, `css/`, and `js/` as folders. Replace matching V13.1 files when prompted.
 
-V13.1 adds visible per-section image slots and a localStorage fallback for image customization, so selected images are easier to verify on the live page.
+Professional credentials, registration, experience, contact details, booking links and client reviews remain placeholders until verified details are supplied.
