@@ -1,4 +1,4 @@
-# Puja Mohapatra Clinical Psychology — V11.2
+# Puja Mohapatra Clinical Psychology — V11.3.2
 
 A premium, responsive clinical psychology website designed with a calm, elegant editorial aesthetic.
 
@@ -35,4 +35,4 @@ Keep professional credentials, registration information, experience, contact det
 
 ## Version
 
-**V11.2 — Premium Reference Design**
+**V11.3.2 — Premium Reference Design**
