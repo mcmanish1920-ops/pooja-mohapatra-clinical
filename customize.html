@@ -43,32 +43,69 @@ function writeImageMap(map){try{localStorage.setItem(mapKey,JSON.stringify(map))
 function defaultImage(id){return c?.sectionImages?.[id] || (id==='hero' ? c?.hero?.image : '') || ''}
 async function renderImages(){
   let data={};
-  try{const rows=await getAll();const idb=Object.fromEntries(rows.map(x=>[x.id,x.dataUrl]));data={...readImageMap(),...idb}}catch(e){data={...readImageMap()}}
+  try{
+    const rows=await getAll();
+    data=Object.fromEntries(rows.map(x=>[x.id,x.dataUrl]).filter(x=>x[1]));
+  }catch(e){ console.warn('Image database unavailable',e); }
   $('imageGrid').innerHTML=sections.map(([id,title,desc])=>{
     const src=data[id]||defaultImage(id);
-    return `<article class="image-card"><h3>${title}</h3><small>${desc}</small><img class="image-preview" data-preview="${id}" src="${src}" alt="${title} image preview" onerror="this.style.opacity=.35"><div class="image-actions"><button type="button" class="file-label" data-pick="${id}">Choose image</button><input class="file-input" id="file-${id}" type="file" accept="image/jpeg,image/png,image/webp,image/*" data-file="${id}"><button type="button" class="mini-btn" data-clear="${id}">Remove</button></div><div class="image-status" data-status="${id}">${data[id]?'Saved image':'Current website image'}</div></article>`
+    return `<article class="image-card"><h3>${title}</h3><small>${desc}</small><img class="image-preview" data-preview="${id}" src="${src}" alt="${title} image preview" onerror="this.style.opacity=.35"><div class="image-actions"><button type="button" class="file-label" data-pick="${id}">Choose image</button><input class="file-input" id="file-${id}" type="file" accept="image/jpeg,image/png,image/webp,image/*" data-file="${id}"><button type="button" class="mini-btn" data-clear="${id}">Remove</button></div><div class="image-status" data-status="${id}">${data[id]?'Saved image':'Current website image'}</div></article>`;
   }).join('');
-  $$('[data-pick]').forEach(btn=>btn.addEventListener('click',()=>{const input=$(`#file-${btn.dataset.pick}`);if(input){input.value='';input.click()}}));
-  $$('[data-file]').forEach(input=>input.addEventListener('change',async e=>{
-    const file=e.target.files?.[0],id=e.target.dataset.file;if(!file)return;
+
+  // Event delegation: keeps buttons reliable on Android and after any re-render.
+  $('imageGrid').onclick=async e=>{
+    const pick=e.target.closest('[data-pick]');
+    if(pick){
+      e.preventDefault();
+      const input=$(`#file-${pick.dataset.pick}`);
+      if(input){ input.value=''; input.click(); }
+      return;
+    }
+    const clear=e.target.closest('[data-clear]');
+    if(clear){
+      e.preventDefault();
+      const id=clear.dataset.clear;
+      const status=$(`[data-status="${id}"]`);
+      const preview=$(`[data-preview="${id}"]`);
+      clear.disabled=true;
+      if(status) status.textContent='Removing…';
+      try{
+        await del(id);
+        const map=readImageMap();
+        if(Object.prototype.hasOwnProperty.call(map,id)){ delete map[id]; writeImageMap(map); }
+        if(preview){ preview.src=defaultImage(id); preview.style.opacity='1'; }
+        if(status) status.textContent='Using website default image';
+        $('status').textContent=`${id[0].toUpperCase()+id.slice(1)} image removed ✓`;
+      }catch(err){
+        if(status) status.textContent='Could not remove image. Please try again.';
+        $('status').textContent='Image removal failed on this device.';
+        console.error(err);
+      }finally{ clear.disabled=false; }
+    }
+  };
+
+  $('imageGrid').onchange=async e=>{
+    const input=e.target.closest('[data-file]');
+    if(!input)return;
+    const file=input.files?.[0],id=input.dataset.file;
+    if(!file)return;
     const status=$(`[data-status="${id}"]`),preview=$(`[data-preview="${id}"]`);
-    status.textContent='Preparing image…';
+    if(status) status.textContent='Preparing image…';
     try{
-      if(!file.type.startsWith('image/'))throw new Error('type');
+      if(!file.type.startsWith('image/')) throw new Error('type');
       const dataUrl=await compressImage(file);
-      const map=readImageMap();map[id]=dataUrl;
-      if(!writeImageMap(map))throw new Error('storage');
       await put(id,dataUrl);
+      const map=readImageMap(); delete map[id]; writeImageMap(map);
       if(preview){preview.src=dataUrl;preview.style.opacity='1';}
-      status.textContent='Image saved ✓';$('status').textContent=`${id[0].toUpperCase()+id.slice(1)} image preview updated. Tap View Website to verify.`;
-    }catch(err){status.textContent='Could not save this image. Try a smaller JPG/PNG/WebP.';$('status').textContent='Image could not be saved on this device.'}
-    e.target.value='';
-  }));
-  $$('[data-clear]').forEach(btn=>btn.addEventListener('click',async()=>{
-    const id=btn.dataset.clear;const map=readImageMap();delete map[id];writeImageMap(map);try{await del(id)}catch(e){}
-    const preview=$(`[data-preview="${id}"]`);if(preview){preview.src=defaultImage(id);preview.style.opacity='1'}
-    $(`[data-status="${id}"]`).textContent='Using website default image';$('status').textContent=`${id[0].toUpperCase()+id.slice(1)} image reset.`;
-  }));
+      if(status) status.textContent='Image saved ✓';
+      $('status').textContent=`${id[0].toUpperCase()+id.slice(1)} image preview updated. Tap View Website to verify.`;
+    }catch(err){
+      if(status) status.textContent='Could not save this image. Try a smaller JPG/PNG/WebP.';
+      $('status').textContent='Image could not be saved on this device.';
+      console.error(err);
+    }
+    input.value='';
+  };
 }
 renderImages().catch(()=>{$('status').textContent='Image editor could not open. Please refresh the page.'});
 $('editor').onsubmit=e=>{e.preventDefault();state={...state,professional:{name:$('name').value,designation:$('designation').value,biography:$('bio').value},hero:{...(state.hero||{}),eyebrow:$('eyebrow').value,heading:$('heading').value,highlight:$('highlight').value,description:$('description').value},contact:{phone:$('phone').value,email:$('email').value,address:$('address').value},appearance:{...(state.appearance||{}),primary:$('primary').value}};try{localStorage.setItem(key,JSON.stringify(state));$('status').textContent='Text & settings saved ✓'}catch(err){$('status').textContent='Could not save text settings.'}};
