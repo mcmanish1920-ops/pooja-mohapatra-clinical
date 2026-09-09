@@ -18,11 +18,11 @@ const social=c.social||{};$('#socials').innerHTML=Object.entries(social).filter(
 if(c.contact.bookingUrl){$$('a[href="#contact"]').forEach(a=>{if(a.classList.contains('pill'))a.href=c.contact.bookingUrl})}
 }
 render();
-// V12.5: load per-section images from IndexedDB (more reliable than localStorage on Android).
+// V12.7: load per-section images from Customize Center (more reliable than localStorage on Android).
 (async()=>{
   try{
     const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('pujaSiteCustomizerV12_5',1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('images'))r.result.createObjectStore('images',{keyPath:'id'})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
-    const images=await new Promise((resolve,reject)=>{const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();r.onsuccess=()=>resolve(Object.fromEntries(r.result.map(x=>[x.id,x.dataUrl])));r.onerror=()=>reject(r.error)});
+    const images=await new Promise((resolve,reject)=>{const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();r.onsuccess=()=>{let out=Object.fromEntries(r.result.map(x=>[x.id,x.dataUrl]));try{const a=JSON.parse(localStorage.getItem('pujaSectionImageMapV127')||'{}');const b=JSON.parse(localStorage.getItem('pujaSectionImageMapV125')||'{}');out={...b,...a,...out}}catch(_){}resolve(out)};r.onerror=()=>reject(r.error)});
     Object.entries(images).forEach(([id,url])=>{
       if(id==='hero'){const img=$('#heroImage');if(img)img.src=url;}
       const img=$('#'+id+'Image');
