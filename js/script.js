@@ -18,6 +18,17 @@ const social=c.social||{};$('#socials').innerHTML=Object.entries(social).filter(
 if(c.contact.bookingUrl){$$('a[href="#contact"]').forEach(a=>{if(a.classList.contains('pill'))a.href=c.contact.bookingUrl})}
 }
 render();
+// V12.5: load per-section images from IndexedDB (more reliable than localStorage on Android).
+(async()=>{
+  try{
+    const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('pujaSiteCustomizerV12_5',1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('images'))r.result.createObjectStore('images',{keyPath:'id'})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
+    const images=await new Promise((resolve,reject)=>{const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();r.onsuccess=()=>resolve(Object.fromEntries(r.result.map(x=>[x.id,x.dataUrl])));r.onerror=()=>reject(r.error)});
+    Object.entries(images).forEach(([id,url])=>{
+      if(id==='hero'){const img=$('#heroImage');if(img)img.src=url;}
+      else {const el=$('#'+id);if(el)el.style.setProperty('--section-image',`url(\"${url}\")`);}
+    });
+  }catch(e){}
+})();
 // Motion system: smooth reveals, staggered cards, gentle parallax, and active navigation.
 const revealEls=$$('.reveal');
 revealEls.forEach((el,i)=>el.style.setProperty('--reveal-delay',`${Math.min((i%5)*70,280)}ms`));
