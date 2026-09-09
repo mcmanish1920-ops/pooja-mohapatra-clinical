@@ -18,9 +18,47 @@ const social=c.social||{};$('#socials').innerHTML=Object.entries(social).filter(
 if(c.contact.bookingUrl){$$('a[href="#contact"]').forEach(a=>{if(a.classList.contains('pill'))a.href=c.contact.bookingUrl})}
 }
 render();
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.setProperty('--reveal-delay',`${Math.min((e.target.parentElement?.children.length||1)*18,90)}ms`);e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -8% 0px'});$$('.reveal').forEach(e=>io.observe(e));
-let ticking=false;const parallax=()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const y=scrollY;$$('.section-image').forEach(el=>{const r=el.getBoundingClientRect();el.style.transform=`translate3d(0,${(r.top-innerHeight/2)*-0.025}px,0)`});document.documentElement.style.setProperty('--scroll-y',y+'px');ticking=false})};addEventListener('scroll',parallax,{passive:true});parallax();
-addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;$('#progress').style.width=(scrollY/Math.max(h,1)*100)+'%'},{passive:true});
-$('#menu').onclick=()=>$('#nav').classList.toggle('open');$$('#nav a').forEach(a=>a.onclick=()=>$('#nav').classList.remove('open'));
+// Motion system: smooth reveals, staggered cards, gentle parallax, and active navigation.
+const revealEls=$$('.reveal');
+revealEls.forEach((el,i)=>el.style.setProperty('--reveal-delay',`${Math.min((i%5)*70,280)}ms`));
+const io=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target)}
+}),{threshold:.10,rootMargin:'0px 0px -7% 0px'});
+revealEls.forEach(el=>io.observe(el));
+
+const sectionEls=$$('main section[id]');
+const navLinks=$$('#nav a[href^="#"]');
+const setActive=(id)=>navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===`#${id}`));
+const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)setActive(entry.target.id)}),{rootMargin:'-35% 0px -55% 0px',threshold:0});
+sectionEls.forEach(el=>sectionObserver.observe(el));
+
+let ticking=false;
+const updateMotion=()=>{
+  if(ticking)return;
+  ticking=true;
+  requestAnimationFrame(()=>{
+    const y=scrollY;
+    document.documentElement.style.setProperty('--scroll-y',`${y}px`);
+    const heroImg=$('#heroImage');
+    if(heroImg){const heroRect=heroImg.getBoundingClientRect();const shift=Math.max(-18,Math.min(18,(innerHeight/2-heroRect.top-heroRect.height/2)*0.035));heroImg.style.transform=`translate3d(0,${shift}px,0) scale(1.01)`;}
+    $$('.section').forEach(el=>{
+      const r=el.getBoundingClientRect();
+      const offset=Math.max(-28,Math.min(28,(innerHeight/2-(r.top+r.height/2))*0.025));
+      el.style.setProperty('--bg-shift',`${offset}px`);
+    });
+    const h=document.documentElement.scrollHeight-innerHeight;
+    $('#progress').style.width=`${scrollY/Math.max(h,1)*100}%`;
+    ticking=false;
+  });
+};
+addEventListener('scroll',updateMotion,{passive:true});addEventListener('resize',updateMotion);updateMotion();
+
+const menu=$('#menu'),nav=$('#nav');
+menu.setAttribute('aria-expanded','false');
+menu.onclick=()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));};
+$$('#nav a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')});
+addEventListener('keydown',e=>{if(e.key==='Escape'){nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}});
+addEventListener('click',e=>{if(window.innerWidth<=760&&!nav.contains(e.target)&&!menu.contains(e.target)){nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}});
+
 $('#consultationForm').addEventListener('submit',e=>{e.preventDefault();set('#formStatus','Thank you. This demo form is ready to connect to your verified email or booking system.');e.target.reset()});
 })();
