@@ -11,7 +11,7 @@
 @media(max-width:700px){.editor-page{padding:55px 0}.editor-grid,.image-grid{grid-template-columns:1fr}.editor-field.full{grid-column:auto}.editor-card{padding:22px}.editor-title{font-size:48px}.editor-actions .pill{width:100%;justify-content:center}.file-label,.mini-btn{min-height:44px;padding:12px 18px;font-size:13px}}
 </style></head>
 <body><main class="editor-page"><div class="container editor-wrap">
-<a class="back" href="index.html">← Back to website</a><p class="eyebrow">WEBSITE EDITOR · V12.7</p><h1 class="editor-title">Customize the practice site.</h1>
+<a class="back" href="index.html">← Back to website</a><p class="eyebrow">WEBSITE EDITOR · V12.9</p><h1 class="editor-title">Customize the practice site.</h1>
 <p class="muted">Change your content and choose a different image for every titled section. Images are saved in this browser using IndexedDB, so the image picker works reliably on Android and does not depend on localStorage size.</p>
 <form id="editor" class="editor-card"><div class="editor-grid">
 <div class="editor-field"><label for="name">Name</label><input id="name" required></div><div class="editor-field"><label for="designation">Designation</label><input id="designation" required></div>
@@ -37,13 +37,13 @@ async function put(id,dataUrl){const db=await openDB();return new Promise((resol
 async function del(id){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,'readwrite');tx.objectStore(storeName).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
 async function clearImages(){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,'readwrite');tx.objectStore(storeName).clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
 function compressImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const max=1400,scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',0.82))};img.onerror=reject;img.src=reader.result};reader.onerror=reject;reader.readAsDataURL(file)})}
-const mapKey='pujaSectionImageMapV127';
+const mapKey='pujaSectionImageMapV129';
 function readImageMap(){try{return JSON.parse(localStorage.getItem(mapKey)||'{}')}catch(e){return {}}}
 function writeImageMap(map){try{localStorage.setItem(mapKey,JSON.stringify(map));return true}catch(e){return false}}
 function defaultImage(id){return c?.sectionImages?.[id] || (id==='hero' ? c?.hero?.image : '') || ''}
 async function renderImages(){
   let data={};
-  try{data={...JSON.parse(localStorage.getItem('pujaSectionImageMapV125')||'{}'),...readImageMap(),...(await getAll())}}catch(e){data={...readImageMap()}}
+  try{const rows=await getAll();const idb=Object.fromEntries(rows.map(x=>[x.id,x.dataUrl]));data={...JSON.parse(localStorage.getItem('pujaSectionImageMapV125')||'{}'),...readImageMap(),...idb}}catch(e){data={...readImageMap()}}
   $('imageGrid').innerHTML=sections.map(([id,title,desc])=>{
     const src=data[id]||defaultImage(id);
     return `<article class="image-card"><h3>${title}</h3><small>${desc}</small><img class="image-preview" data-preview="${id}" src="${src}" alt="${title} image preview" onerror="this.style.opacity=.35"><div class="image-actions"><button type="button" class="file-label" data-pick="${id}">Choose image</button><input class="file-input" id="file-${id}" type="file" accept="image/jpeg,image/png,image/webp,image/*" data-file="${id}"><button type="button" class="mini-btn" data-clear="${id}">Remove</button></div><div class="image-status" data-status="${id}">${data[id]?'Saved image':'Current website image'}</div></article>`
