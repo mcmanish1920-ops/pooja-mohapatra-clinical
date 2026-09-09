@@ -120,3 +120,29 @@ body{overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimiz
 }
 @media(min-width:761px){.menu{display:none!important}}
 @media(prefers-reduced-motion:reduce){.track{animation:none!important}.header,.portrait-wrap:before,.service-card,.gallery-card,.gallery-card img,.pill,.reveal,.principles article,.quote-card,.journey-item,.review-card,.approach-photo img,.nav nav,.nav-backdrop,.menu span{transition:none!important}.reveal{opacity:1!important;transform:none!important}}
+
+/* V11.3 premium polish */
+.menu:before{content:none!important}
+.menu{overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),background .35s ease,border-color .35s ease}
+.menu:hover{transform:translateY(-1px)}
+.menu[aria-expanded=true]{background:rgba(18,61,44,.12);border-color:rgba(18,61,44,.22)}
+.menu span{transform-origin:center;will-change:transform,opacity}
+
+.hero .copy{position:relative;z-index:2}
+.hero .portrait-wrap{z-index:1}
+.portrait{object-position:38% center}
+
+@media(max-width:760px){
+  .hero-inner{padding-top:30px;gap:28px;padding-bottom:68px}
+  .hero .copy{padding-top:0}
+  .hero h1{letter-spacing:-.045em}
+  .hero .lead{max-width:38rem}
+  .portrait-wrap{margin-top:0}
+  .portrait{object-position:36% center}
+  .hand-note{display:none}
+  .leaf{opacity:.65}
+  .trust{margin-top:2px}
+}
+@media(min-width:761px){
+  .portrait{object-position:38% center}
+}
