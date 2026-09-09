@@ -1,5 +1,5 @@
 (()=>{
-const base=window.SITE_CONFIG||{};const saved=(()=>{try{return JSON.parse(localStorage.getItem('pujaSiteConfigV13')||'null')}catch(e){return null}})();
+const base=window.SITE_CONFIG||{};const saved=(()=>{try{return JSON.parse(localStorage.getItem('pujaSiteConfigV14')||localStorage.getItem('pujaSiteConfigV13')||'null')}catch(e){return null}})();
 const merge=(a,b)=>{if(!b)return a;const o=Array.isArray(a)?[...a]:{...a};Object.keys(b).forEach(k=>{o[k]=b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])?merge(o[k]||{},b[k]):b[k]});return o};const c=merge(base,saved);
 const sectionImages=c.sectionImages||{};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -90,6 +90,7 @@ addEventListener('scroll',updateHeader,{passive:true});updateHeader();
 const topButton=document.createElement('button');topButton.className='to-top';topButton.type='button';topButton.setAttribute('aria-label','Back to top');topButton.textContent='↑';document.body.appendChild(topButton);
 topButton.onclick=()=>scrollTo({top:0,behavior:'smooth'});
 const updateTop=()=>topButton.classList.toggle('show',scrollY>700);addEventListener('scroll',updateTop,{passive:true});updateTop();
+const mobileBook=$('#mobileBook');const contactSection=$('#contact');const updateMobileBook=()=>{if(!mobileBook||!contactSection)return;const r=contactSection.getBoundingClientRect();mobileBook.classList.toggle('hidden',scrollY<450||r.top<innerHeight*.72)};addEventListener('scroll',updateMobileBook,{passive:true});addEventListener('resize',updateMobileBook);updateMobileBook();
 
 $('#consultationForm').addEventListener('submit',e=>{e.preventDefault();set('#formStatus','Thank you. This demo form is ready to connect to your verified email or booking system.');e.target.reset()});
 })();
