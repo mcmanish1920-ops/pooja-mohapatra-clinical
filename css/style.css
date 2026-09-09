@@ -42,3 +42,12 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}.reveal{opacity:0;transform:
  .section:before{transform:none!important}
  .nav nav>a:not(.pill):after{transition:none}
 }
+
+/* V12.5 premium responsive polish */
+.hero .copy,.portrait-wrap{will-change:transform}
+.hero .copy{animation:heroIn .9s cubic-bezier(.22,1,.36,1) both}
+.portrait-wrap{animation:heroImageIn 1s .08s cubic-bezier(.22,1,.36,1) both}
+@keyframes heroIn{from{opacity:0;transform:translate3d(0,24px,0)}to{opacity:1;transform:none}}
+@keyframes heroImageIn{from{opacity:0;transform:translate3d(20px,18px,0) scale(.985)}to{opacity:1;transform:none}}
+@media(max-width:760px){.hero-inner{padding-top:82px}.hero h1{font-size:clamp(43px,12vw,56px);line-height:1.02}.lead{font-size:13px}.buttons{flex-direction:column;align-items:stretch}.buttons .pill{justify-content:center}.trust{flex-wrap:wrap;gap:12px 18px}.portrait-wrap{height:520px}.portrait{height:520px;border-radius:42% 42% 18px 18px}.hero-bottom{position:relative;bottom:auto;left:auto;transform:none;justify-content:center;padding-bottom:24px}.approach{padding:70px 0}.approach-photo{order:2}.approach-list{order:3}.about,.services,.journey,.practice,.reviews,.faq,.approach,.cta,.contact{background-size:cover;background-position:center}.nav nav{top:72px}.nav nav .pill{justify-content:center;margin-top:3px}.brand strong{font-size:14px;letter-spacing:.04em}.brand small{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.hero .copy,.portrait-wrap{animation:none}}
