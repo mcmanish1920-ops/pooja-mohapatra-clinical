@@ -146,3 +146,58 @@ body{overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimiz
 @media(min-width:761px){
   .portrait{object-position:38% center}
 }
+
+
+/* V11.4 — full-page visual hierarchy + section rhythm + motion polish */
+:root{--shadow-soft:0 20px 60px rgba(23,35,30,.065);--shadow-hover:0 28px 70px rgba(23,35,30,.11)}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{background:var(--cream)}
+.header.scrolled{box-shadow:0 10px 35px rgba(23,35,30,.07)}
+.section-tone{background:rgba(255,253,248,.48)}
+.section[data-section] .container{position:relative}
+.section[data-section] .container:after{content:attr(data-section);position:absolute;top:0;right:0;font:600 10px/1 'DM Sans',sans-serif;letter-spacing:.24em;color:rgba(23,35,30,.28)}
+.eyebrow{letter-spacing:.24em}
+.hero{isolation:isolate}
+.hero:after{content:'';position:absolute;inset:8% 0 auto auto;width:42vw;height:42vw;max-width:620px;max-height:620px;border:1px solid rgba(185,155,98,.16);border-radius:50%;transform:translate(45%,-15%);pointer-events:none;z-index:-1}
+.hero .copy .eyebrow,.hero .copy h1,.hero .copy .lead,.hero .copy .buttons,.hero .copy .trust{opacity:0;transform:translateY(22px);animation:heroIn .9s var(--ease-soft) forwards}
+.hero .copy h1{animation-delay:.08s}.hero .copy .lead{animation-delay:.16s}.hero .copy .buttons{animation-delay:.24s}.hero .copy .trust{animation-delay:.32s}
+.portrait-wrap{opacity:0;transform:translate3d(20px,18px,0) scale(.985);animation:heroImageIn 1.05s .18s var(--ease-soft) forwards}
+@keyframes heroIn{to{opacity:1;transform:none}}@keyframes heroImageIn{to{opacity:1;transform:none}}
+.section-top h2,.journey h2,.practice h2,.reviews h2,.faq-grid h2,.contact h2{max-width:900px}
+.service-grid,.journey-grid,.review-grid,.gallery{align-items:stretch}
+.service-card,.journey-item,.review-card,.gallery-card{box-shadow:0 0 0 rgba(0,0,0,0)}
+.service-card:hover,.journey-item:hover,.review-card:hover{box-shadow:var(--shadow-hover)}
+.service-card:after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.28),transparent 45%);opacity:0;transition:opacity .5s ease;pointer-events:none}.service-card:hover:after{opacity:1}
+.gallery-card{overflow:hidden}.gallery-card figcaption{transition:transform .5s var(--ease),opacity .5s ease}.gallery-card:hover figcaption{transform:translateY(-3px)}
+.approach{position:relative;overflow:hidden}.approach:before{content:'';position:absolute;width:55vw;height:55vw;border:1px solid rgba(255,255,255,.08);border-radius:50%;left:-30vw;top:-25vw;pointer-events:none}
+.approach-list{position:relative;z-index:1}
+.faq-grid details{padding-left:2px}.faq-grid details[open] summary span{transform:rotate(180deg)}.faq-grid summary span{display:inline-block;transition:transform .35s var(--ease)}
+.cta{position:relative;overflow:hidden}.cta:before{content:'';position:absolute;width:40vw;height:40vw;border:1px solid rgba(185,155,98,.18);border-radius:50%;right:-20vw;top:-18vw}
+.contact form{box-shadow:var(--shadow-soft)}
+@media(min-width:761px){
+ .hero-inner{gap:clamp(35px,5vw,90px)}
+ .portrait-wrap{transform-origin:center right}
+ .about-grid,.approach-grid,.contact-grid{align-items:start}
+ .service-grid{grid-template-columns:repeat(4,1fr)}
+ .service-card{min-height:300px}
+ .journey-grid{grid-template-columns:repeat(3,1fr)}
+ .review-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+ html{scroll-padding-top:76px}
+ .section[data-section] .container:after{top:-18px;right:0;font-size:8px}
+ .hero:after{width:95vw;height:95vw;transform:translate(58%,-18%)}
+ .hero-inner{gap:25px;padding-bottom:58px}
+ .portrait-wrap{height:min(108vw,480px);min-height:360px}
+ .section-tone{background:rgba(255,253,248,.58)}
+ .about,.services,.journey,.practice,.reviews,.faq{padding-top:74px;padding-bottom:76px}
+ .service-card{min-height:210px}
+ .approach{padding:76px 0}
+ .cta{padding:68px 0}
+ .contact{padding:76px 0}
+ .contact form{box-shadow:0 15px 40px rgba(23,35,30,.06)}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .hero .copy .eyebrow,.hero .copy h1,.hero .copy .lead,.hero .copy .buttons,.hero .copy .trust,.portrait-wrap{animation:none!important;opacity:1!important;transform:none!important}
+}
