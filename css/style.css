@@ -6,15 +6,18 @@
 .about,.services,.journey,.practice,.reviews,.faq,.approach,.cta,.contact{position:relative;overflow:hidden;background-repeat:no-repeat;background-position:right center;background-size:cover}
 .about:before,.services:before,.journey:before,.practice:before,.reviews:before,.faq:before,.approach:before,.cta:before,.contact:before{content:"";position:absolute;inset:0;background:rgba(246,241,231,.78);pointer-events:none;z-index:0}
 .about>*,.services>* ,.journey>* ,.practice>* ,.reviews>* ,.faq>* ,.approach>* ,.cta>* ,.contact>*{position:relative;z-index:1}
-.about{background-image:url('../assets/bg-about.svg')}
-.services{background-image:url('../assets/bg-services.svg')}
-.journey{background-image:url('../assets/bg-journey.svg')}
-.practice{background-image:url('../assets/bg-practice.svg')}
-.reviews{background-image:url('../assets/bg-reviews.svg')}
-.faq{background-image:url('../assets/bg-faq.svg')}
-.approach{background-image:url('../assets/bg-approach.svg')}
-.cta{background-image:url('../assets/bg-cta.svg')}
-.contact{background-image:url('../assets/bg-contact.svg')}
+.about{background-image:var(--section-image,url('../assets/bg-about.svg'))}
+.services{background-image:var(--section-image,url('../assets/bg-services.svg'))}
+.journey{background-image:var(--section-image,url('../assets/bg-journey.svg'))}
+.practice{background-image:var(--section-image,url('../assets/bg-practice.svg'))}
+.reviews{background-image:var(--section-image,url('../assets/bg-reviews.svg'))}
+.faq{background-image:var(--section-image,url('../assets/bg-faq.svg'))}
+.approach{background-image:var(--section-image,url('../assets/bg-approach.svg'))}
+.cta{background-image:var(--section-image,url('../assets/bg-cta.svg'))}
+.contact{background-image:var(--section-image,url('../assets/bg-contact.svg'))}
 .approach:before,.cta:before,.contact:before{background:rgba(18,61,44,.84)}
 .about:after,.services:after,.journey:after,.practice:after,.reviews:after,.faq:after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:1px solid rgba(185,155,98,.18);right:-180px;top:-150px;pointer-events:none}
 @media(max-width:760px){.about,.services,.journey,.practice,.reviews,.faq,.approach,.cta,.contact{background-position:center;background-size:auto 100%;}.about:before,.services:before,.journey:before,.practice:before,.reviews:before,.faq:before{background:rgba(246,241,231,.88)}.approach:before,.cta:before,.contact:before{background:rgba(18,61,44,.9)}}
+
+/* V12.2 fluid motion system */
+html{scroll-behavior:smooth;scroll-padding-top:80px}.reveal{opacity:0;transform:translate3d(0,28px,0) scale(.985);filter:blur(2px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1),filter .85s ease;transition-delay:var(--reveal-delay,0ms);will-change:transform,opacity}.reveal.in{opacity:1;transform:none;filter:none}.section-image{will-change:transform}.about,.services,.journey,.practice,.reviews,.faq,.approach,.cta,.contact{background-attachment:scroll;transition:background-position .25s linear}.service-card,.review-card,.journey-item,.approach-item,.gallery-card,.quote-card{will-change:transform}.service-card{transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease}.service-card:hover{transform:translateY(-8px)}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;filter:none;transition:none}.section-image{transform:none!important}.service-card{transition:none}}
