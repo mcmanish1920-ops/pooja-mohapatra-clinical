@@ -1,5 +1,5 @@
 (()=>{
-const base=window.SITE_CONFIG||{};const saved=(()=>{try{return JSON.parse(localStorage.getItem('pujaSiteConfigV12')||'null')}catch(e){return null}})();
+const base=window.SITE_CONFIG||{};const saved=(()=>{try{return JSON.parse(localStorage.getItem('pujaSiteConfigV13')||'null')}catch(e){return null}})();
 const merge=(a,b)=>{if(!b)return a;const o=Array.isArray(a)?[...a]:{...a};Object.keys(b).forEach(k=>{o[k]=b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])?merge(o[k]||{},b[k]):b[k]});return o};const c=merge(base,saved);
 const sectionImages=c.sectionImages||{};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -18,21 +18,28 @@ const social=c.social||{};$('#socials').innerHTML=Object.entries(social).filter(
 if(c.contact.bookingUrl){$$('a[href="#contact"]').forEach(a=>{if(a.classList.contains('pill'))a.href=c.contact.bookingUrl})}
 }
 render();
-// V12.7: load per-section images from Customize Center (more reliable than localStorage on Android).
+// V13 image system: one shared IndexedDB database for all section images.
 (async()=>{
   try{
-    const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('pujaSiteCustomizerV12_5',1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('images'))r.result.createObjectStore('images',{keyPath:'id'})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
-    const images=await new Promise((resolve,reject)=>{const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();r.onsuccess=()=>{let out=Object.fromEntries(r.result.map(x=>[x.id,x.dataUrl]));try{const a=JSON.parse(localStorage.getItem('pujaSectionImageMapV129')||'{}');const old=JSON.parse(localStorage.getItem('pujaSectionImageMapV127')||'{}');const b=JSON.parse(localStorage.getItem('pujaSectionImageMapV125')||'{}');out={...b,...old,...a,...out}}catch(_){}resolve(out)};r.onerror=()=>reject(r.error)});
-    Object.entries(images).forEach(([id,url])=>{
-      if(id==='hero'){const img=$('#heroImage');if(img)img.src=url;}
-      const img=$('#'+id+'Image');
-      if(img) img.src=url;
-      const el=$('#'+id);
-      if(el) el.style.setProperty('--section-image',`url(\"${url}\")`);
-      if(id==='practice'){const first=$('#galleryGrid img');if(first)first.src=url;}
+    const db=await new Promise((resolve,reject)=>{
+      const r=indexedDB.open('pujaSiteCustomizerV13',1);
+      r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('images'))r.result.createObjectStore('images',{keyPath:'id'});};
+      r.onsuccess=()=>resolve(r.result); r.onerror=()=>reject(r.error);
     });
-  }catch(e){}
+    const rows=await new Promise((resolve,reject)=>{
+      const tx=db.transaction('images','readonly'), r=tx.objectStore('images').getAll();
+      r.onsuccess=()=>resolve(r.result||[]); r.onerror=()=>reject(r.error);
+    });
+    const images=Object.fromEntries(rows.map(x=>[x.id,x.dataUrl]).filter(x=>x[1]));
+    Object.entries(images).forEach(([id,url])=>{
+      const img=$('#'+id+'Image'); if(img) img.src=url;
+      if(id==='hero'){const hero=$('#heroImage'); if(hero) hero.src=url;}
+      const section=$('#'+id); if(section) section.style.setProperty('--section-image',`url("${url}")`);
+      if(id==='practice'){const first=$('#galleryGrid img'); if(first) first.src=url;}
+    });
+  }catch(e){console.warn('Customize images could not be loaded',e);}
 })();
+
 // Motion system: smooth reveals, staggered cards, gentle parallax, and active navigation.
 const revealEls=$$('.reveal');
 revealEls.forEach((el,i)=>el.style.setProperty('--reveal-delay',`${Math.min((i%5)*70,280)}ms`));
