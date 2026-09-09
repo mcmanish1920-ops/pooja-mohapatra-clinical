@@ -1,8 +1,8 @@
-# Puja Mohapatra Clinical Psychology — V13.0
+# Puja Mohapatra Clinical Psychology — V13.1
 
 Premium responsive clinical psychology website for GitHub Pages.
 
-## V13.0
+## V13.1
 - Reliable Android image picker using a real label/input control.
 - Per-section image customization for Hero, About, Services, Approach, Journey, Practice, Reviews, FAQ, Contact and CTA.
 - Section images stored in IndexedDB for better browser capacity than localStorage.
@@ -13,4 +13,4 @@ Premium responsive clinical psychology website for GitHub Pages.
 ### Important
 Customize changes are browser-local preview changes. For permanent public changes, place final image files in `assets/` and set their paths in `config.js`.
 
-V13.0 adds visible per-section image slots and a localStorage fallback for image customization, so selected images are easier to verify on the live page.
+V13.1 adds visible per-section image slots and a localStorage fallback for image customization, so selected images are easier to verify on the live page.
