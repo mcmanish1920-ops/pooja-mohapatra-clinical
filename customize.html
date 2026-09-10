@@ -5,14 +5,14 @@
 <title>Customize | Puja Mohapatra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=13.0">
+<link rel="stylesheet" href="css/style.css?v=21.0">
 <style>
 .editor-page{padding:95px 0}.editor-wrap{max-width:1000px;margin:auto}.editor-title{font:500 clamp(44px,7vw,76px)/.98 'Playfair Display',serif;max-width:760px;margin:20px 0}.editor-card{background:#fffdf8;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,5vw,48px);box-shadow:0 18px 60px rgba(23,35,30,.06)}.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.editor-field{display:flex;flex-direction:column;gap:9px}.editor-field.full{grid-column:1/-1}.editor-field label{font-weight:600}.editor-field input,.editor-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:14px;background:#fff;padding:14px 16px;font:inherit;color:var(--ink)}.editor-field textarea{min-height:130px;resize:vertical}.editor-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.editor-note{margin-top:18px;color:var(--muted);font-size:14px;line-height:1.6}.color-row{display:flex;align-items:center;gap:12px}.color-row input{width:64px;height:44px;padding:4px}.status{margin-top:16px;font-weight:600;color:var(--primary);min-height:20px}.image-panel{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}.image-panel h2{font:500 34px 'Playfair Display',serif;margin:0 0 8px}.image-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px}.image-card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;transition:transform .25s ease,box-shadow .25s ease}.image-card:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(23,35,30,.07)}.image-card h3{font:20px 'Playfair Display',serif;margin:0 0 5px}.image-card small{display:block;color:var(--muted);line-height:1.5;margin-bottom:12px}.image-preview{width:100%;aspect-ratio:16/10;border-radius:12px;object-fit:cover;background:#eef0ea;display:block;margin-bottom:12px}.image-actions{display:flex;gap:8px;flex-wrap:wrap}.file-label{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:999px;background:var(--primary);color:#fff;cursor:pointer;font-size:12px;font-weight:700;user-select:none;-webkit-tap-highlight-color:transparent}.file-label:active{transform:scale(.98)}.file-input{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important}.mini-btn{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:999px;cursor:pointer;font:600 12px 'DM Sans';-webkit-tap-highlight-color:transparent}.image-status{font-size:11px;color:var(--sage);margin-top:9px;min-height:16px}.danger-note{margin-top:18px;padding:14px 16px;border-radius:12px;background:#f6f1e7;color:#68736c;font-size:12px;line-height:1.6}
 @media(max-width:700px){.editor-page{padding:55px 0}.editor-grid,.image-grid{grid-template-columns:1fr}.editor-field.full{grid-column:auto}.editor-card{padding:22px}.editor-title{font-size:48px}.editor-actions .pill{width:100%;justify-content:center}.file-label,.mini-btn{min-height:44px;padding:12px 18px;font-size:13px}}
 </style></head>
 <body><main class="editor-page"><div class="container editor-wrap">
-<a class="back" href="index.html">← Back to website</a><p class="eyebrow">WEBSITE EDITOR · V13.0</p><h1 class="editor-title">Customize the practice site.</h1>
-<p class="muted">Change your content and choose a different image for every titled section. Images are saved in this browser using IndexedDB, so the image picker works reliably on Android and does not depend on localStorage size.</p>
+<a class="back" href="index.html">← Back to website</a><p class="eyebrow">WEBSITE EDITOR · V21.0</p><h1 class="editor-title">Customize the practice site.</h1>
+<p class="muted">Change your content, colors, and every section image from one place. The editor works directly in this browser and updates the website preview immediately when you return to the site. Images are saved in this browser using IndexedDB, so the image picker works reliably on Android and does not depend on localStorage size.</p>
 <form id="editor" class="editor-card"><div class="editor-grid">
 <div class="editor-field"><label for="name">Name</label><input id="name" required></div><div class="editor-field"><label for="designation">Designation</label><input id="designation" required></div>
 <div class="editor-field"><label for="heading">Hero heading</label><input id="heading" required></div><div class="editor-field"><label for="highlight">Hero highlight</label><input id="highlight" required></div>
@@ -25,7 +25,7 @@
 </form></div></main>
 <script src="config.js"></script><script>
 (()=>{
-const c=window.SITE_CONFIG||{}, key='pujaSiteConfigV13', dbName='pujaSiteCustomizerV13', storeName='images';
+const c=window.SITE_CONFIG||{}, key='pujaSiteConfigV21', dbName='pujaSiteCustomizerV21', storeName='images';
 const $=id=>document.getElementById(id); const $$=s=>[...document.querySelectorAll(s)];
 const saved=()=>{try{return JSON.parse(localStorage.getItem(key)||'null')||{}}catch(e){return {}}};
 let state=saved(); const get=(a,b)=>state?.[a]?.[b]??c?.[a]?.[b]??'';
@@ -37,7 +37,7 @@ async function put(id,dataUrl){const db=await openDB();return new Promise((resol
 async function del(id){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,'readwrite');tx.objectStore(storeName).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
 async function clearImages(){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,'readwrite');tx.objectStore(storeName).clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
 function compressImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const max=1400,scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',0.82))};img.onerror=reject;img.src=reader.result};reader.onerror=reject;reader.readAsDataURL(file)})}
-const mapKey='pujaSectionImageMapV13';
+const mapKey='pujaSectionImageMapV21';
 function readImageMap(){try{return JSON.parse(localStorage.getItem(mapKey)||'{}')}catch(e){return {}}}
 function writeImageMap(map){try{localStorage.setItem(mapKey,JSON.stringify(map));return true}catch(e){return false}}
 function defaultImage(id){return c?.sectionImages?.[id] || (id==='hero' ? c?.hero?.image : '') || ''}
