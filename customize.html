@@ -2,112 +2,120 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Customize | Puja Mohapatra</title>
+<meta name="theme-color" content="#19362a"><title>Customize | Puja Mohapatra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=21.0">
 <style>
-.editor-page{padding:95px 0}.editor-wrap{max-width:1000px;margin:auto}.editor-title{font:500 clamp(44px,7vw,76px)/.98 'Playfair Display',serif;max-width:760px;margin:20px 0}.editor-card{background:#fffdf8;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,5vw,48px);box-shadow:0 18px 60px rgba(23,35,30,.06)}.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.editor-field{display:flex;flex-direction:column;gap:9px}.editor-field.full{grid-column:1/-1}.editor-field label{font-weight:600}.editor-field input,.editor-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:14px;background:#fff;padding:14px 16px;font:inherit;color:var(--ink)}.editor-field textarea{min-height:130px;resize:vertical}.editor-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.editor-note{margin-top:18px;color:var(--muted);font-size:14px;line-height:1.6}.color-row{display:flex;align-items:center;gap:12px}.color-row input{width:64px;height:44px;padding:4px}.status{margin-top:16px;font-weight:600;color:var(--primary);min-height:20px}.image-panel{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}.image-panel h2{font:500 34px 'Playfair Display',serif;margin:0 0 8px}.image-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px}.image-card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;transition:transform .25s ease,box-shadow .25s ease}.image-card:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(23,35,30,.07)}.image-card h3{font:20px 'Playfair Display',serif;margin:0 0 5px}.image-card small{display:block;color:var(--muted);line-height:1.5;margin-bottom:12px}.image-preview{width:100%;aspect-ratio:16/10;border-radius:12px;object-fit:cover;background:#eef0ea;display:block;margin-bottom:12px}.image-actions{display:flex;gap:8px;flex-wrap:wrap}.file-label{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:999px;background:var(--primary);color:#fff;cursor:pointer;font-size:12px;font-weight:700;user-select:none;-webkit-tap-highlight-color:transparent}.file-label:active{transform:scale(.98)}.file-input{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important}.mini-btn{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:999px;cursor:pointer;font:600 12px 'DM Sans';-webkit-tap-highlight-color:transparent}.image-status{font-size:11px;color:var(--sage);margin-top:9px;min-height:16px}.danger-note{margin-top:18px;padding:14px 16px;border-radius:12px;background:#f6f1e7;color:#68736c;font-size:12px;line-height:1.6}
-@media(max-width:700px){.editor-page{padding:55px 0}.editor-grid,.image-grid{grid-template-columns:1fr}.editor-field.full{grid-column:auto}.editor-card{padding:22px}.editor-title{font-size:48px}.editor-actions .pill{width:100%;justify-content:center}.file-label,.mini-btn{min-height:44px;padding:12px 18px;font-size:13px}}
-</style></head>
-<body><main class="editor-page"><div class="container editor-wrap">
-<a class="back" href="index.html">← Back to website</a><p class="eyebrow">WEBSITE EDITOR · V21.0</p><h1 class="editor-title">Customize the practice site.</h1>
-<p class="muted">Change your content, colors, and every section image from one place. The editor works directly in this browser and updates the website preview immediately when you return to the site. Images are saved in this browser using IndexedDB, so the image picker works reliably on Android and does not depend on localStorage size.</p>
-<form id="editor" class="editor-card"><div class="editor-grid">
-<div class="editor-field"><label for="name">Name</label><input id="name" required></div><div class="editor-field"><label for="designation">Designation</label><input id="designation" required></div>
-<div class="editor-field"><label for="heading">Hero heading</label><input id="heading" required></div><div class="editor-field"><label for="highlight">Hero highlight</label><input id="highlight" required></div>
-<div class="editor-field full"><label for="description">Hero description</label><textarea id="description" required></textarea></div><div class="editor-field"><label for="eyebrow">Hero eyebrow</label><input id="eyebrow"></div>
-<div class="editor-field"><label for="bio">Biography</label><textarea id="bio"></textarea></div><div class="editor-field"><label for="phone">Phone</label><input id="phone"></div><div class="editor-field"><label for="email">Email</label><input id="email" type="email"></div><div class="editor-field"><label for="address">Clinic address</label><input id="address"></div>
-<div class="editor-field"><label for="primary">Primary color</label><div class="color-row"><input id="primary" type="color"><span id="primaryValue"></span></div></div></div>
-<div class="image-panel"><h2>Section images</h2><p class="muted">Each titled section has its own image slot. Tap <b>Choose image</b>, select a photo from your phone, and the preview updates immediately; the same image is applied to that section on the website.</p><div id="imageGrid" class="image-grid"></div></div>
-<div class="editor-actions"><button class="pill dark" type="submit">Save Text &amp; Settings <span>→</span></button><a class="pill outline" href="index.html">View Website</a><button class="pill outline" id="reset" type="button">Reset Preview</button></div>
-<p id="status" class="status"></p><p class="editor-note"><b>Important:</b> Customize changes are a browser preview. They appear on the website when that website is opened in the same browser/device. To make a change permanent for everyone, publish the chosen image inside <b>assets/</b> and set its path in <b>config.js</b>.</p>
-</form></div></main>
-<script src="config.js"></script><script>
+:root{--green:#19362a;--cream:#fbf9f3;--ink:#19362a;--muted:#68736d;--line:#dfe4de;--card:#fffdf8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif}
+a{text-decoration:none;color:inherit}.top{position:sticky;top:0;z-index:20;background:rgba(251,249,243,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topin{max-width:1180px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{font-family:"Playfair Display",serif;font-size:22px}.brand small{display:block;font:600 10px "DM Sans";letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:999px;padding:11px 16px;font:700 12px "DM Sans";cursor:pointer}.primary{background:var(--green);color:#fff}.light{background:#fff;border:1px solid var(--line);color:var(--ink)}
+main{max-width:1180px;margin:auto;padding:55px 20px 90px}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}.title{font:500 clamp(42px,7vw,76px)/.98 "Playfair Display",serif;max-width:850px;margin:15px 0}.intro{max-width:720px;color:var(--muted);line-height:1.8}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,34px);margin-top:22px;box-shadow:0 18px 55px rgba(25,54,42,.06)}
+h2{font:500 34px "Playfair Display",serif;margin:0 0 8px}h3{font:600 18px "DM Sans";margin:0 0 12px}.hint{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 22px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.full{grid-column:1/-1}.field{display:flex;flex-direction:column;gap:8px}.field label{font-size:12px;font-weight:700;letter-spacing:.04em}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px 14px;color:var(--ink);font:inherit;outline:none}.field textarea{min-height:115px;resize:vertical}.field input:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(25,54,42,.08)}
+.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin:24px 0}.tab{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:12px;font-weight:700;cursor:pointer}.tab.active{background:var(--green);color:#fff}
+.panel{display:none}.panel.active{display:block}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.status{min-height:22px;margin-top:13px;color:var(--green);font-weight:700;font-size:13px}
+.colors{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.colorbox{border:1px solid var(--line);border-radius:14px;background:#fff;padding:12px}.colorbox label{display:block;font-size:11px;font-weight:700;margin-bottom:8px}.colorbox input{width:100%;height:42px;border:0;background:none;padding:0}
+.images{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.image-card{border:1px solid var(--line);border-radius:15px;background:#fff;padding:14px}.image-card h3{font-family:"Playfair Display",serif;font-size:20px}.image-card p{font-size:12px;color:var(--muted);min-height:34px;line-height:1.5}.preview{width:100%;height:180px;object-fit:cover;border-radius:11px;background:#edf0ea;display:block;margin:10px 0}.file{display:block;width:100%;font-size:12px}.image-status{font-size:11px;color:var(--muted);margin-top:8px}.note{padding:14px 16px;background:#eef2ed;border-radius:13px;color:#425148;font-size:12px;line-height:1.6;margin-top:18px}
+@media(max-width:760px){.grid,.images{grid-template-columns:1fr}.full{grid-column:auto}.colors{grid-template-columns:1fr 1fr}.topin{align-items:flex-start}.title{font-size:48px}.preview{height:210px}}
+@media(max-width:430px){.colors{grid-template-columns:1fr}.top-actions .btn{padding:9px 12px}.title{font-size:42px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<a class="brand" href="index.html">Puja Mohapatra<small>Psychologist · Customize Center</small></a>
+<div class="top-actions"><a class="btn light" href="index.html">View Website</a><button class="btn primary" id="saveTop" type="button">Save Changes</button></div>
+</div></header>
+<main>
+<div class="eyebrow">V23 · Website editor</div>
+<h1 class="title">Make the practice feel exactly the way you want.</h1>
+<p class="intro">Edit content, images and visual settings here. Changes are saved in this browser and applied when the main website is opened on the same device/browser.</p>
+<div class="tabs"><button class="tab active" data-tab="content">Content</button><button class="tab" data-tab="images">Images</button><button class="tab" data-tab="design">Design</button></div>
+
+<section class="card panel active" id="content"><h2>Content</h2><p class="hint">Use verified professional information only. Replace placeholders when the final details are available.</p>
+<form id="contentForm"><div class="grid">
+<div class="field"><label>Name</label><input id="name"></div><div class="field"><label>Professional title</label><input id="designation"></div>
+<div class="field full"><label>Site description</label><textarea id="siteDescription"></textarea></div>
+<div class="field"><label>Hero eyebrow</label><input id="eyebrow"></div><div class="field"><label>Hero heading</label><input id="heading"></div>
+<div class="field"><label>Hero highlighted text</label><input id="highlight"></div><div class="field full"><label>Hero description</label><textarea id="heroDescription"></textarea></div>
+<div class="field full"><label>About / biography</label><textarea id="bio"></textarea></div><div class="field full"><label>Practice philosophy</label><textarea id="philosophy"></textarea></div>
+<div class="field"><label>Qualifications</label><textarea id="qualifications"></textarea></div><div class="field"><label>Registration</label><textarea id="registration"></textarea></div><div class="field"><label>Experience</label><textarea id="experience"></textarea></div>
+</div>
+<div class="card"><h3>Services</h3><div class="grid" id="servicesFields"></div></div>
+<div class="card"><h3>Journey</h3><div class="grid" id="journeyFields"></div></div>
+<div class="card"><h3>Approach</h3><div class="grid" id="approachFields"></div></div>
+<div class="card"><h3>Contact</h3><div class="grid">
+<div class="field"><label>Phone</label><input id="phone"></div><div class="field"><label>Email</label><input id="email" type="email"></div>
+<div class="field full"><label>Address</label><input id="address"></div><div class="field"><label>Booking URL</label><input id="bookingUrl"></div><div class="field"><label>WhatsApp URL</label><input id="whatsappUrl"></div>
+</div></div>
+<div class="actions"><button class="btn primary" type="submit">Save Content</button><button class="btn light" type="button" id="resetAll">Reset Everything</button></div><div class="status" id="status"></div>
+</form></section>
+
+<section class="card panel" id="images"><h2>Images</h2><p class="hint">Choose a replacement image for each section. The image is compressed and saved locally in this browser.</p><div class="images" id="imageGrid"></div>
+<div class="note">Image changes do <b>not</b> upload to GitHub automatically. They are local browser customizations.</div></section>
+
+<section class="card panel" id="design"><h2>Design</h2><p class="hint">Control the main visual language without editing CSS.</p>
+<div class="colors"><div class="colorbox"><label>Primary</label><input id="primary" type="color"></div><div class="colorbox"><label>Sage</label><input id="sage" type="color"></div><div class="colorbox"><label>Background</label><input id="cream" type="color"></div><div class="colorbox"><label>Text</label><input id="ink" type="color"></div><div class="colorbox"><label>Accent</label><input id="gold" type="color"></div></div>
+<div class="grid" style="margin-top:20px"><div class="field"><label>Corner radius</label><input id="radius" type="range" min="0" max="40"><output id="radiusOut"></output></div>
+<div class="field"><label>Motion intensity</label><select id="motion"><option value="soft">Soft</option><option value="smooth">Smooth</option><option value="expressive">Expressive</option><option value="reduced">Reduced</option></select></div>
+<div class="field"><label>Heading font</label><select id="headingFont"><option>Playfair Display</option><option>Georgia</option><option>serif</option></select></div>
+<div class="field"><label>Body font</label><select id="bodyFont"><option>DM Sans</option><option>Arial</option><option>sans-serif</option></select></div></div>
+<div class="actions"><button class="btn primary" id="saveDesign" type="button">Save Design</button></div><div class="status" id="designStatus"></div>
+</section>
+</main>
+
+<script src="config.js"></script>
+<script>
 (()=>{
-const c=window.SITE_CONFIG||{}, key='pujaSiteConfigV21', dbName='pujaSiteCustomizerV21', storeName='images';
-const $=id=>document.getElementById(id); const $$=s=>[...document.querySelectorAll(s)];
-const saved=()=>{try{return JSON.parse(localStorage.getItem(key)||'null')||{}}catch(e){return {}}};
-let state=saved(); const get=(a,b)=>state?.[a]?.[b]??c?.[a]?.[b]??'';
-$('name').value=get('professional','name');$('designation').value=get('professional','designation');$('heading').value=get('hero','heading');$('highlight').value=get('hero','highlight');$('description').value=get('hero','description');$('eyebrow').value=get('hero','eyebrow');$('bio').value=get('professional','biography');$('phone').value=get('contact','phone');$('email').value=get('contact','email');$('address').value=get('contact','address');$('primary').value=get('appearance','primary')||'#123d2c';$('primaryValue').textContent=$('primary').value;$('primary').oninput=()=>$('primaryValue').textContent=$('primary').value;
-const sections=[['hero','Hero','Main profile image'],['about','About','Professional introduction'],['services','Services','Services visual'],['approach','Approach','Approach visual'],['journey','Journey','Professional journey visual'],['practice','Practice','Clinic / practice atmosphere'],['reviews','Reviews','Reviews section visual'],['faq','FAQ','Helpful, calm FAQ visual'],['contact','Contact','Contact / consultation visual'],['cta','CTA','Call-to-action visual']];
-function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(dbName,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(storeName))r.result.createObjectStore(storeName,{keyPath:'id'})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
-async function getAll(){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,'readonly');const r=tx.objectStore(storeName).getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
-async function put(id,dataUrl){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,'readwrite');tx.objectStore(storeName).put({id,dataUrl});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
-async function del(id){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,'readwrite');tx.objectStore(storeName).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
-async function clearImages(){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,'readwrite');tx.objectStore(storeName).clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
-function compressImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const max=1400,scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',0.82))};img.onerror=reject;img.src=reader.result};reader.onerror=reject;reader.readAsDataURL(file)})}
-const mapKey='pujaSectionImageMapV21';
-function readImageMap(){try{return JSON.parse(localStorage.getItem(mapKey)||'{}')}catch(e){return {}}}
-function writeImageMap(map){try{localStorage.setItem(mapKey,JSON.stringify(map));return true}catch(e){return false}}
-function defaultImage(id){return c?.sectionImages?.[id] || (id==='hero' ? c?.hero?.image : '') || ''}
-async function renderImages(){
-  let data={};
-  try{
-    const rows=await getAll();
-    data=Object.fromEntries(rows.map(x=>[x.id,x.dataUrl]).filter(x=>x[1]));
-  }catch(e){ console.warn('Image database unavailable',e); }
-  $('imageGrid').innerHTML=sections.map(([id,title,desc])=>{
-    const src=data[id]||defaultImage(id);
-    return `<article class="image-card"><h3>${title}</h3><small>${desc}</small><img class="image-preview" data-preview="${id}" src="${src}" alt="${title} image preview" onerror="this.style.opacity=.35"><div class="image-actions"><button type="button" class="file-label" data-pick="${id}">Choose image</button><input class="file-input" id="file-${id}" type="file" accept="image/jpeg,image/png,image/webp,image/*" data-file="${id}"><button type="button" class="mini-btn" data-clear="${id}">Remove</button></div><div class="image-status" data-status="${id}">${data[id]?'Saved image':'Current website image'}</div></article>`;
-  }).join('');
-
-  // Event delegation: keeps buttons reliable on Android and after any re-render.
-  $('imageGrid').onclick=async e=>{
-    const pick=e.target.closest('[data-pick]');
-    if(pick){
-      e.preventDefault();
-      const input=$(`#file-${pick.dataset.pick}`);
-      if(input){ input.value=''; input.click(); }
-      return;
-    }
-    const clear=e.target.closest('[data-clear]');
-    if(clear){
-      e.preventDefault();
-      const id=clear.dataset.clear;
-      const status=$(`[data-status="${id}"]`);
-      const preview=$(`[data-preview="${id}"]`);
-      clear.disabled=true;
-      if(status) status.textContent='Removing…';
-      try{
-        await del(id);
-        const map=readImageMap();
-        if(Object.prototype.hasOwnProperty.call(map,id)){ delete map[id]; writeImageMap(map); }
-        if(preview){ preview.src=defaultImage(id); preview.style.opacity='1'; }
-        if(status) status.textContent='Using website default image';
-        $('status').textContent=`${id[0].toUpperCase()+id.slice(1)} image removed ✓`;
-      }catch(err){
-        if(status) status.textContent='Could not remove image. Please try again.';
-        $('status').textContent='Image removal failed on this device.';
-        console.error(err);
-      }finally{ clear.disabled=false; }
-    }
-  };
-
-  $('imageGrid').onchange=async e=>{
-    const input=e.target.closest('[data-file]');
-    if(!input)return;
-    const file=input.files?.[0],id=input.dataset.file;
-    if(!file)return;
-    const status=$(`[data-status="${id}"]`),preview=$(`[data-preview="${id}"]`);
-    if(status) status.textContent='Preparing image…';
-    try{
-      if(!file.type.startsWith('image/')) throw new Error('type');
-      const dataUrl=await compressImage(file);
-      await put(id,dataUrl);
-      const map=readImageMap(); delete map[id]; writeImageMap(map);
-      if(preview){preview.src=dataUrl;preview.style.opacity='1';}
-      if(status) status.textContent='Image saved ✓';
-      $('status').textContent=`${id[0].toUpperCase()+id.slice(1)} image preview updated. Tap View Website to verify.`;
-    }catch(err){
-      if(status) status.textContent='Could not save this image. Try a smaller JPG/PNG/WebP.';
-      $('status').textContent='Image could not be saved on this device.';
-      console.error(err);
-    }
-    input.value='';
-  };
+'use strict';
+const KEY='pujaSiteConfigV23',DB='pujaSiteCustomizerV23', $=id=>document.getElementById(id);
+const base=window.SITE_CONFIG||{};let state=merge(base,read());
+function merge(a,b){if(!b)return JSON.parse(JSON.stringify(a||{}));const o=Array.isArray(a)?a.slice():{...a};Object.keys(b).forEach(k=>o[k]=b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])?merge(o[k]||{},b[k]):b[k]);return o}
+function read(){try{return JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('pujaSiteConfigV21')||'null')}catch(e){return null}}
+function set(id,v){if($(id))$(id).value=v??''}function get(id){return $(id).value}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function populate(){
+ const p=state.professional||{},h=state.hero||{},a=state.appearance||{},c=state.contact||{};
+ set('name',p.name||state.site?.name);set('designation',p.designation||state.site?.title);set('siteDescription',state.site?.description);
+ set('eyebrow',h.eyebrow);set('heading',h.heading);set('highlight',h.highlight);set('heroDescription',h.description);set('bio',p.biography);set('philosophy',state.philosophy);
+ set('qualifications',p.qualifications);set('registration',p.registration);set('experience',p.experience);set('phone',c.phone);set('email',c.email);set('address',c.address);set('bookingUrl',c.bookingUrl);set('whatsappUrl',c.whatsappUrl);
+ ['primary','sage','cream','ink','gold'].forEach(k=>set(k,a[k]||'#19362a'));set('radius',a.radius||18);set('motion',a.motion||'smooth');set('headingFont',a.headingFont||'Playfair Display');set('bodyFont',a.bodyFont||'DM Sans');$('radiusOut').textContent=get('radius')+'px';
+ renderArrays();
 }
-renderImages().catch(()=>{$('status').textContent='Image editor could not open. Please refresh the page.'});
-$('editor').onsubmit=e=>{e.preventDefault();state={...state,professional:{name:$('name').value,designation:$('designation').value,biography:$('bio').value},hero:{...(state.hero||{}),eyebrow:$('eyebrow').value,heading:$('heading').value,highlight:$('highlight').value,description:$('description').value},contact:{phone:$('phone').value,email:$('email').value,address:$('address').value},appearance:{...(state.appearance||{}),primary:$('primary').value}};try{localStorage.setItem(key,JSON.stringify(state));$('status').textContent='Text & settings saved ✓'}catch(err){$('status').textContent='Could not save text settings.'}};
-$('reset').onclick=async()=>{if(!confirm('Reset all browser preview changes and section images?'))return;localStorage.removeItem(key);await clearImages();location.reload()};
-})();</script></body></html>
+function renderArrays(){
+ const s=state.services||[],t=state.timeline||[],a=state.approach||[];
+ $('servicesFields').innerHTML=s.slice(0,4).map((x,i)=>`<div class="field"><label>Service ${i+1} title</label><input data-arr="services" data-i="${i}" data-k="title" value="${esc(x.title)}"></div><div class="field"><label>Service ${i+1} description</label><textarea data-arr="services" data-i="${i}" data-k="text">${esc(x.text)}</textarea></div>`).join('');
+ $('journeyFields').innerHTML=t.slice(0,3).map((x,i)=>`<div class="field"><label>Journey ${i+1} year</label><input data-arr="timeline" data-i="${i}" data-k="year" value="${esc(x.year)}"></div><div class="field"><label>Journey ${i+1} title</label><input data-arr="timeline" data-i="${i}" data-k="title" value="${esc(x.title)}"></div><div class="field full"><label>Journey ${i+1} text</label><textarea data-arr="timeline" data-i="${i}" data-k="text">${esc(x.text)}</textarea></div>`).join('');
+ $('approachFields').innerHTML=a.slice(0,4).map((x,i)=>`<div class="field"><label>Approach ${i+1} title</label><input data-arr="approach" data-i="${i}" data-k="title" value="${esc(x.title)}"></div><div class="field"><label>Approach ${i+1} text</label><textarea data-arr="approach" data-i="${i}" data-k="text">${esc(x.text)}</textarea></div>`).join('');
+}
+function arrays(){document.querySelectorAll('[data-arr]').forEach(e=>{const a=e.dataset.arr,i=+e.dataset.i,k=e.dataset.k;if(state[a]?.[i])state[a][i][k]=e.value})}
+function save(msg){
+ arrays();state.site={...(state.site||{}),name:get('name'),title:get('designation'),description:get('siteDescription')};
+ state.professional={...(state.professional||{}),name:get('name'),designation:get('designation'),biography:get('bio'),qualifications:get('qualifications'),registration:get('registration'),experience:get('experience')};
+ state.hero={...(state.hero||{}),eyebrow:get('eyebrow'),heading:get('heading'),highlight:get('highlight'),description:get('heroDescription')};
+ state.philosophy=get('philosophy');state.contact={...(state.contact||{}),phone:get('phone'),email:get('email'),address:get('address'),bookingUrl:get('bookingUrl'),whatsappUrl:get('whatsappUrl')};
+ state.appearance={...(state.appearance||{}),primary:get('primary'),sage:get('sage'),cream:get('cream'),ink:get('ink'),gold:get('gold'),radius:get('radius'),motion:get('motion'),headingFont:get('headingFont'),bodyFont:get('bodyFont')};
+ try{localStorage.setItem(KEY,JSON.stringify(state));$('status').textContent=msg;return true}catch(e){$('status').textContent='Could not save. Browser storage may be full.';return false}
+}
+$('contentForm').onsubmit=e=>{e.preventDefault();save('Content saved ✓')};$('saveTop').onclick=()=>save('All settings saved ✓');$('radius').oninput=()=>$('radiusOut').textContent=get('radius')+'px';$('saveDesign').onclick=()=>save('Design saved ✓');
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));t.classList.add('active');$(t.dataset.tab).classList.add('active')});
+
+const slots=[['hero','Hero','Main portrait / hero image'],['about','About','About section image'],['services','Services','Subtle services visual'],['journey','Journey','Journey section image'],['practice','Practice','Practice gallery lead image'],['approach','Approach','Approach section image'],['reviews','Reviews','Reviews band background'],['faq','FAQ','FAQ section visual'],['contact','Contact','Contact section visual'],['cta','CTA','Call-to-action visual']];
+const defs={hero:'assets/hero.jpg',about:'assets/about.jpg',services:'assets/services.jpg',journey:'assets/journey.jpg',practice:'assets/practice-1.jpg',approach:'assets/approach.jpg',reviews:'assets/principles.jpg',faq:'assets/faq.svg',contact:'assets/contact.jpg',cta:'assets/principles.jpg'};
+function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('images'))r.result.createObjectStore('images',{keyPath:'id'})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function rows(){const db=await openDB();return new Promise((res,rej)=>{const r=db.transaction('images','readonly').objectStore('images').getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}
+async function put(id,dataUrl){const db=await openDB();return new Promise((res,rej)=>{const tx=db.transaction('images','readwrite');tx.objectStore('images').put({id,dataUrl});tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
+async function del(id){const db=await openDB();return new Promise((res,rej)=>{const tx=db.transaction('images','readwrite');tx.objectStore('images').delete(id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
+function compress(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const max=1600,s=Math.min(1,max/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.naturalWidth*s));c.height=Math.max(1,Math.round(im.naturalHeight*s));c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.84))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
+function def(id){return state.sectionImages?.[id]||defs[id]||''}
+async function renderImages(){let rs=[];try{rs=await rows()}catch(e){}const map=Object.fromEntries(rs.map(x=>[x.id,x.dataUrl]));$('imageGrid').innerHTML=slots.map(([id,t,d])=>`<article class="image-card"><h3>${t}</h3><p>${d}</p><img class="preview" id="preview-${id}" src="${map[id]||def(id)}" alt="${t} preview"><input class="file" type="file" accept="image/*" data-file="${id}"><div class="image-status" id="imageStatus-${id}">${map[id]?'Saved custom image':'Using website default'}</div><div class="actions"><button class="btn light" type="button" data-remove="${id}">Use default</button></div></article>`).join('');
+ $('imageGrid').onchange=async e=>{const i=e.target.closest('[data-file]');if(!i)return;const id=i.dataset.file,f=i.files?.[0];if(!f)return;const st=$('imageStatus-'+id);st.textContent='Saving image…';try{const data=await compress(f);await put(id,data);$('preview-'+id).src=data;st.textContent='Custom image saved ✓'}catch(err){st.textContent='Could not save this image.'}i.value=''};
+ $('imageGrid').onclick=async e=>{const b=e.target.closest('[data-remove]');if(!b)return;const id=b.dataset.remove;await del(id);$('preview-'+id).src=def(id);$('imageStatus-'+id).textContent='Using website default ✓'};
+}
+populate();renderImages();
+$('resetAll').onclick=async()=>{if(!confirm('Reset all saved website customizations on this browser?'))return;localStorage.removeItem(KEY);try{const db=await openDB();await new Promise((res,rej)=>{const tx=db.transaction('images','readwrite');tx.objectStore('images').clear();tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}catch(e){}location.reload()};
+})();
+</script>
+</body></html>
