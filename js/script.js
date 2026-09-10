@@ -2,7 +2,7 @@
 'use strict';
 document.documentElement.classList.add('js');
 const base=window.SITE_CONFIG||{};
-const saved=(()=>{try{return JSON.parse(localStorage.getItem('pujaSiteConfigV21')||localStorage.getItem('pujaSiteConfigV14')||localStorage.getItem('pujaSiteConfigV13')||'null')}catch(e){return null}})();
+const saved=(()=>{try{return JSON.parse(localStorage.getItem('pujaSiteConfigV23')||localStorage.getItem('pujaSiteConfigV21')||localStorage.getItem('pujaSiteConfigV14')||localStorage.getItem('pujaSiteConfigV13')||'null')}catch(e){return null}})();
 const merge=(a,b)=>{if(!b)return a;const o=Array.isArray(a)?[...a]:{...a};Object.keys(b).forEach(k=>{o[k]=b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])?merge(o[k]||{},b[k]):b[k]});return o};
 const c=merge(base,saved);
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -15,14 +15,14 @@ function render(){
  if(appearance.radius)document.documentElement.style.setProperty('--radius',appearance.radius+'px');
  const sectionImages=c.sectionImages||{};
  const imageDefaults={
-   hero:c.hero?.image||'assets/hero-reference.jpg',
-   about:'assets/about-reference.jpg',
-   journey:'assets/journey-reference.jpg',
-   approach:'assets/approach-reference.jpg',
-   practice:'assets/practice-1-reference.jpg',
+   hero:c.hero?.image||'assets/hero.jpg',
+   about:'assets/about.jpg',
+   journey:'assets/journey.jpg',
+   approach:'assets/approach.jpg',
+   practice:'assets/practice-1.jpg',
    reviews:null,
-   faq:'assets/contact-reference.jpg',
-   contact:'assets/contact-reference.jpg'
+   faq:'assets/contact.jpg',
+   contact:'assets/contact.jpg'
  };
  const hero=$('#heroImage'); if(hero) hero.src=imageDefaults.hero;
  Object.entries(imageDefaults).forEach(([id,src])=>{
@@ -31,7 +31,7 @@ function render(){
  Object.entries(sectionImages).forEach(([id,src])=>{
    const section=$('#'+id); if(section&&src && id!=='hero' && !['about','journey','approach','practice','faq','contact'].includes(id)) section.style.setProperty('--section-image',`url("${src}")`);
  });
- const logo=$('#navLogo');if(logo)logo.src=c.branding?.logo||'assets/logo-puja-mohapatra-psychologist.png';
+ const logo=$('#navLogo');if(logo)logo.src=c.branding?.logo||'assets/logo.png';
  set('#heroEyebrow',c.hero?.eyebrow);set('#heroHeading',c.hero?.heading);set('#heroHighlight',c.hero?.highlight);set('#heroDescription',c.hero?.description);
  set('#bio',c.professional?.biography);set('#philosophy',c.philosophy);set('#qualifications',c.professional?.qualifications);set('#registration',c.professional?.registration);set('#experience',c.professional?.experience);
  set('#phone',c.contact?.phone);set('#email',c.contact?.email);set('#address',c.contact?.address);set('#footerEmail',c.contact?.email);set('#footerPhone',c.contact?.phone);
@@ -50,10 +50,21 @@ function render(){
 render();
 
 (async()=>{try{
- const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('pujaSiteCustomizerV21',1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('images'))r.result.createObjectStore('images',{keyPath:'id'});};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
- const rows=await new Promise((resolve,reject)=>{const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)});
- Object.entries(Object.fromEntries(rows.map(x=>[x.id,x.dataUrl]).filter(x=>x[1]))).forEach(([id,url])=>{const img=$('#'+id+'Image');if(img)img.src=url;const section=$('#'+id);if(section)section.style.setProperty('--section-image',`url("${url}")`);if(id==='practice'){const first=$('#practiceImage');if(first)first.src=url}});
- }catch(e){console.warn('Customize images unavailable',e)}})();
+ const db=await new Promise((resolve,reject)=>{
+   const r=indexedDB.open('pujaSiteCustomizerV23',1);
+   r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('images'))r.result.createObjectStore('images',{keyPath:'id'});};
+   r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
+ });
+ const rows=await new Promise((resolve,reject)=>{
+   const tx=db.transaction('images','readonly'),r=tx.objectStore('images').getAll();
+   r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error);
+ });
+ Object.entries(Object.fromEntries(rows.map(x=>[x.id,x.dataUrl]).filter(x=>x[1]))).forEach(([id,url])=>{
+   const img=$('#'+id+'Image'); if(img) img.src=url;
+   const section=$('#'+id); if(section){section.style.setProperty('--section-image',`url("${url}")`);section.classList.add('has-custom-section-image');}
+   if(id==='practice'){const first=$('#practiceImage');if(first)first.src=url;}
+ });
+}catch(e){console.warn('Customize images unavailable',e)}})();
 
 const revealEls=$$('.reveal');
 if('IntersectionObserver' in window){const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target)}}),{threshold:.1,rootMargin:'0px 0px -7% 0px'});revealEls.forEach((el,i)=>{el.style.setProperty('--reveal-delay',`${Math.min((i%5)*70,280)}ms`);io.observe(el)})}else revealEls.forEach(el=>el.classList.add('in'));
