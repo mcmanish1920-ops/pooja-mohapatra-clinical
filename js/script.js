@@ -1,5 +1,6 @@
 (()=>{
 'use strict';
+document.documentElement.classList.add('js');
 const base=window.SITE_CONFIG||{};
 const saved=(()=>{try{return JSON.parse(localStorage.getItem('pujaSiteConfigV21')||localStorage.getItem('pujaSiteConfigV14')||localStorage.getItem('pujaSiteConfigV13')||'null')}catch(e){return null}})();
 const merge=(a,b)=>{if(!b)return a;const o=Array.isArray(a)?[...a]:{...a};Object.keys(b).forEach(k=>{o[k]=b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])?merge(o[k]||{},b[k]):b[k]});return o};
@@ -30,7 +31,7 @@ function render(){
  Object.entries(sectionImages).forEach(([id,src])=>{
    const section=$('#'+id); if(section&&src && id!=='hero' && !['about','journey','approach','practice','faq','contact'].includes(id)) section.style.setProperty('--section-image',`url("${src}")`);
  });
- const logo=$('#navLogo');if(logo)logo.src=c.branding?.logo||'assets/logo.png';
+ const logo=$('#navLogo');if(logo)logo.src=c.branding?.logo||'assets/logo-puja-mohapatra-psychologist.png';
  set('#heroEyebrow',c.hero?.eyebrow);set('#heroHeading',c.hero?.heading);set('#heroHighlight',c.hero?.highlight);set('#heroDescription',c.hero?.description);
  set('#bio',c.professional?.biography);set('#philosophy',c.philosophy);set('#qualifications',c.professional?.qualifications);set('#registration',c.professional?.registration);set('#experience',c.professional?.experience);
  set('#phone',c.contact?.phone);set('#email',c.contact?.email);set('#address',c.contact?.address);set('#footerEmail',c.contact?.email);set('#footerPhone',c.contact?.phone);
