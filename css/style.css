@@ -33,3 +33,8 @@ body{background:var(--paper);font-size:15px;line-height:1.65}
 @media (max-width:760px){
   .brand img { width:150px; max-height:42px; }
 }
+
+/* V23 Customize Center: subtle customizable section imagery */
+main section.has-custom-section-image{position:relative;overflow:hidden}
+main section.has-custom-section-image::before{content:"";position:absolute;inset:0;background-image:var(--section-image);background-position:center;background-size:cover;background-repeat:no-repeat;opacity:.10;pointer-events:none;z-index:0}
+main section.has-custom-section-image>*{position:relative;z-index:1}
