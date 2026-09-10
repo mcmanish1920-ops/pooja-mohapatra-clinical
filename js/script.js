@@ -67,6 +67,8 @@ render();
 }catch(e){console.warn('Customize images unavailable',e)}})();
 
 const revealEls=$$('.reveal');
+// Safety fallback: never leave content invisible on mobile if an observer is delayed or blocked.
+setTimeout(()=>revealEls.forEach(el=>el.classList.add('in')),900);
 if('IntersectionObserver' in window){const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target)}}),{threshold:.1,rootMargin:'0px 0px -7% 0px'});revealEls.forEach((el,i)=>{el.style.setProperty('--reveal-delay',`${Math.min((i%5)*70,280)}ms`);io.observe(el)})}else revealEls.forEach(el=>el.classList.add('in'));
 const sectionEls=$$('main section[id]');const navLinks=$$('#nav a[href^="#"]');const setActive=id=>navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===`#${id}`));
 if('IntersectionObserver' in window){const so=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)setActive(entry.target.id)}),{rootMargin:'-35% 0px -55% 0px'});sectionEls.forEach(el=>so.observe(el))}
